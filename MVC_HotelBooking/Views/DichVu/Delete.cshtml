@@ -1,0 +1,16 @@
+﻿@model MVC_HotelBooking.Models.DichVu
+
+<h2 class="text-center mt-4">Xác nhận xóa Dịch Vụ</h2>
+
+<div class="alert alert-danger">
+    <h5>Bạn có chắc chắn muốn xóa dịch vụ sau không?</h5>
+    <hr />
+    <p><strong>Loại dịch vụ:</strong> @Model.KieuDichVu</p>
+    <p><strong>Giá:</strong> @Model.Gia.ToString("N0") VNĐ</p>
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="MaDV" />
+    <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
