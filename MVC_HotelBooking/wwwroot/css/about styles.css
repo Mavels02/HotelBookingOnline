@@ -1,0 +1,82 @@
+/* Giới thiệu */
+.about {
+    background-color: #f8f9fa;
+    padding: 60px 0;
+}
+
+.about h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #f39c12;
+    margin-bottom: 20px;
+}
+
+.about p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.about img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiện nghi */
+.facilities {
+    background-color: #f8f9fa;
+    padding: 60px 0;
+}
+
+.facility-item {
+    text-align: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.facility-item h5 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.facility-item p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Đội ngũ nhân viên */
+.staff {
+    background-color: #f8f9fa;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.staff-item {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.staff-item img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 30px;
+}
+
+.staff-item h5 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;    
+}
+
+.staff-item p {
+    font-size: 1rem;
+    color: #555;
+}

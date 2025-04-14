@@ -1,0 +1,83 @@
+/* Dịch vụ */
+.services {
+    background-color:  #d1e7ff;
+    padding: 60px 0;
+}
+
+.service-item {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.service-item img {
+    width: 100%;
+    height: 250px; /* Cố định chiều cao cho ảnh */
+    object-fit: cover; /* Đảm bảo ảnh sẽ phủ đầy không gian mà không bị méo */
+    border-radius: 10px;
+    margin-bottom: 15px; /* Khoảng cách giữa hình ảnh và tên dịch vụ */
+}
+
+.service-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.service-description {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Responsive design: Adjust layout for smaller screens */
+@media (max-width: 768px) {
+    .service-item {
+        padding: 15px;
+    }
+
+    .service-item img {
+        height: 200px; /* Giảm chiều cao của hình ảnh trên màn hình nhỏ */
+    }
+
+    .service-title {
+        font-size: 1.25rem;
+    }
+
+    .service-description {
+        font-size: 0.9rem;
+    }
+}
+
+
+/* Footer */
+.footer {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.footer h5 {
+    color: #f39c12;
+    font-weight: bold;
+}
+
+.footer a {
+    color: #ddd;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #f39c12;
+}
+
+.footer .social-icons a {
+    color: #fff;
+    font-size: 18px;
+    margin-right: 15px;
+}
+
+.footer .social-icons a:hover {
+    color: #f39c12;
+}

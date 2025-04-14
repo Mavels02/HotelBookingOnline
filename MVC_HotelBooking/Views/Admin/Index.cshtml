@@ -1,0 +1,178 @@
+﻿@{
+    ViewData["Title"] = "Admin";
+}
+<div class="d-flex">
+    <!-- Sidebar -->
+    <aside class="sidebar p-4">
+        <h2 class="h4 mb-4 text-center">Admin Panel</h2>
+        <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" onclick="showSection('dashboard')">📊 Dashboard</a></li>
+            <li class="nav-item mb-2"><a href="#" onclick="showSection('booking-management')">📅 Quản lý đặt phòng</a></li>
+            <li class="nav-item mb-2"><a href="#" onclick="showSection('room-management')">🏨 Quản lý phòng</a></li>
+            <li class="nav-item mb-2"><a href="#" onclick="showSection('customer-management')">👥 Quản lý khách hàng</a></li>
+            <li class="nav-item mb-2"><a href="#" onclick="showSection('system-settings')">⚙ Thiết lập hệ thống</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1 p-4">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section">
+            <h1 class="h3 mb-4">Dashboard</h1>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card p-3 shadow-sm text-center bg-info text-white">
+                        <h2 class="h5">Tổng số phòng</h2>
+                        <p class="fs-4">120</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3 shadow-sm text-center bg-success text-white">
+                        <h2 class="h5">Đơn đặt phòng</h2>
+                        <p class="fs-4">45</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3 shadow-sm text-center bg-warning text-dark">
+                        <h2 class="h5">Doanh thu tháng</h2>
+                        <p class="fs-4">$25,000</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Management Section -->
+        <section id="booking-management" class="content-section">
+            <h2 class="h4 mt-5">Quản lý đặt phòng</h2>
+            <table class="table table-hover table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Khách hàng</th>
+                        <th>Phòng</th>
+                        <th>Ngày nhận</th>
+                        <th>Ngày trả</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Nguyễn Văn A</td>
+                        <td>101</td>
+                        <td>2024-03-20</td>
+                        <td>2024-03-25</td>
+                        <td class="text-success">Đã đặt</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Room Management Section -->
+        <section id="room-management" class="content-section">
+            <h2 class="h4 mt-5">Quản lý phòng</h2>
+            <table class="table table-hover table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên phòng</th>
+                        <th>Loại phòng</th>
+                        <th>Giá</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Phòng Deluxe</td>
+                        <td>VIP</td>
+                        <td>$100</td>
+                        <td class="text-success">Còn trống</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Phòng Standard</td>
+                        <td>Thường</td>
+                        <td>$50</td>
+                        <td class="text-danger">Đã đặt</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Customer Management Section -->
+        <section id="customer-management" class="content-section">
+            <h2 class="h4 mt-5">Quản lý khách hàng</h2>
+            <table class="table table-hover table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Họ tên</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Ngày đăng ký</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Trần Văn B</td>
+                        <td>tranvanb@example.com</td>
+                        <td>0987654321</td>
+                        <td>2024-02-15</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .sidebar {
+        width: 250px;
+        background: #343a40;
+        color: white;
+        min-height: 100vh;
+    }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+        }
+
+            .sidebar a:hover {
+                background: #495057;
+            }
+
+    .content-section {
+        display: none;
+    }
+
+    .card {
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+    table th, table td {
+        text-align: center;
+    }
+</style>
+<script>
+
+
+    function showSection(sectionId) {
+        let sections = document.querySelectorAll('.content-section');
+        sections.forEach(section => section.style.display = 'none');
+            document.getElementById(sectionId).style.display = 'block';
+        }
+</script>
