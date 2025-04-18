@@ -9,6 +9,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 builder.Services.AddScoped<IDichVuService, DichVuService>();
+builder.Services.AddScoped<IPhongService, PhongService>();
 
 // Add services to the container.
 

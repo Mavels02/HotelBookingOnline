@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace API_HotelBooking.Models
 {
@@ -13,7 +14,7 @@ namespace API_HotelBooking.Models
         [Required]
         [Range(0, double.MaxValue)]
         public decimal Gia { get; set; }
-
-        public ICollection<DatDichVu> DatDichVus { get; set; }
+        
+        public ICollection<DatDichVu>? DatDichVus { get; set; }
     }
 }

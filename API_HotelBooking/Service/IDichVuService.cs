@@ -6,8 +6,8 @@ namespace API_HotelBooking.Service
     {
         Task<IEnumerable<DichVu>> GetAllAsync();
         Task<DichVu> GetByIdAsync(int id);
-        Task<DichVu> AddAsync(DichVu dichVu);
-        Task UpdateAsync(DichVu dichVu);
-        Task DeleteAsync(int id);
+        Task<DichVu> CreateAsync(DichVu dichVu);
+        Task<bool> UpdateAsync(int id, DichVu dichVu);
+        Task<bool> DeleteAsync(int id);
     }
 }

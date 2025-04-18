@@ -1,10 +1,13 @@
 ﻿@model MVC_HotelBooking.Models.DichVu
 
-<h2 class="text-center mt-4">Chỉnh sửa Dịch Vụ</h2>
+@{
+    ViewData["Title"] = "Chỉnh sửa dịch vụ";
+}
+
+<h2>Chỉnh sửa dịch vụ</h2>
 
 <form asp-action="Edit" method="post">
     <input type="hidden" asp-for="MaDV" />
-
     <div class="form-group">
         <label asp-for="KieuDichVu"></label>
         <input asp-for="KieuDichVu" class="form-control" />
@@ -12,9 +15,9 @@
     </div>
     <div class="form-group">
         <label asp-for="Gia"></label>
-        <input asp-for="Gia" class="form-control" type="number" step="0.01" />
+        <input asp-for="Gia" class="form-control" />
         <span asp-validation-for="Gia" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary mt-3">Cập nhật</button>
-    <a asp-action="Index" class="btn btn-secondary mt-3">Hủy</a>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
 </form>

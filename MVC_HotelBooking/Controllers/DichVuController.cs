@@ -10,85 +10,73 @@ namespace MVC_HotelBooking.Controllers
     {
         private readonly HttpClient _httpClient;
 
-        public DichVuController(HttpClient httpClient)
+        public DichVuController(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
+            _httpClient = httpClientFactory.CreateClient();
         }
 
         public async Task<IActionResult> Index()
         {
-            var response = await _httpClient.GetAsync("https://localhost:7165/api/dichvu");
-            if (response.IsSuccessStatusCode)
-            {
-                var json = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<IEnumerable<DichVu>>(json);
-                return View(data);
-            }
-            return View(new List<DichVu>());
+            var dichVus = await _httpClient.GetFromJsonAsync<List<DichVu>>("https://localhost:7077/api/DichVu");
+            return View(dichVus);
         }
 
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+            return View();
+        }
 
         [HttpPost]
-        public async Task<IActionResult> Create(DichVu dichVu)
+        public async Task<IActionResult> Create(DichVu model)
         {
-            var response = await _httpClient.PostAsJsonAsync("https://localhost:7165/api/dichvu", dichVu);
+            var response = await _httpClient.PostAsJsonAsync("https://localhost:7077/api/DichVu", model);
             if (response.IsSuccessStatusCode)
-            {
                 return RedirectToAction(nameof(Index));
-            }
-
-            var errorContent = await response.Content.ReadAsStringAsync();
-            ModelState.AddModelError("", $"Lỗi khi tạo dịch vụ: {errorContent}");
-            return View(dichVu);
+            var content = await response.Content.ReadAsStringAsync();
+            ModelState.AddModelError(string.Empty, $"Lỗi API: {content}");
+            return View(model);
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var response = await _httpClient.GetAsync($"https://localhost:7165/api/dichvu/{id}");
-            if (response.IsSuccessStatusCode)
-            {
-                var json = await response.Content.ReadAsStringAsync();
-                var dv = JsonConvert.DeserializeObject<DichVu>(json);
-                return View(dv);
-            }
-            return NotFound();
+            var dichVu = await _httpClient.GetFromJsonAsync<DichVu>($"https://localhost:7077/api/DichVu/{id}");
+            if (dichVu == null)
+                return NotFound();
+            return View(dichVu);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(DichVu dichVu)
+        public async Task<IActionResult> Edit(DichVu model)
         {
-            var response = await _httpClient.PutAsJsonAsync($"https://localhost:7165/api/dichvu/{dichVu.MaDV}", dichVu);
+            var response = await _httpClient.PutAsJsonAsync($"https://localhost:7077/api/DichVu/{model.MaDV}", model);
             if (response.IsSuccessStatusCode)
-            {
                 return RedirectToAction(nameof(Index));
-            }
-
-            ModelState.AddModelError("", "Không thể cập nhật dịch vụ.");
-            return View(dichVu);
+            return View(model);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var response = await _httpClient.GetAsync($"https://localhost:7165/api/dichvu/{id}");
-            if (response.IsSuccessStatusCode)
-            {
-                var json = await response.Content.ReadAsStringAsync();
-                var dv = JsonConvert.DeserializeObject<DichVu>(json);
-                return View(dv);
-            }
-            return NotFound();
+            var dichVu = await _httpClient.GetFromJsonAsync<DichVu>($"https://localhost:7077/api/DichVu/{id}");
+            if (dichVu == null)
+                return NotFound();
+            return View(dichVu);
         }
 
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var response = await _httpClient.DeleteAsync($"https://localhost:7165/api/dichvu/{id}");
+            var response = await _httpClient.DeleteAsync($"https://localhost:7077/api/DichVu/{id}");
             if (response.IsSuccessStatusCode)
-            {
                 return RedirectToAction(nameof(Index));
-            }
-            return View("Error");
+            return View();
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var dichVu = await _httpClient.GetFromJsonAsync<DichVu>($"https://localhost:7077/api/DichVu/{id}");
+            if (dichVu == null)
+                return NotFound();
+            return View(dichVu);
         }
     }
 }

@@ -1,0 +1,50 @@
+﻿@model MVC_HotelBooking.Models.Phong
+
+@{
+    ViewData["Title"] = "Chỉnh sửa phòng";
+}
+
+<h2 class="mb-4">Chỉnh sửa phòng</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="MaP" />
+
+    <div class="mb-3">
+        <label asp-for="TenPhong" class="form-label"></label>
+        <input asp-for="TenPhong" class="form-control" />
+        <span asp-validation-for="TenPhong" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MaLP" class="form-label">Mã loại phòng</label>
+        <input asp-for="MaLP" class="form-control" />
+        <span asp-validation-for="MaLP" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="GiaPhong" class="form-label"></label>
+        <input asp-for="GiaPhong" class="form-control" />
+        <span asp-validation-for="GiaPhong" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TrangThai" class="form-label"></label>
+        <input asp-for="TrangThai" class="form-control" />
+        <span asp-validation-for="TrangThai" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ImageUrl" class="form-label">URL hình ảnh</label>
+        <input asp-for="ImageUrl" class="form-control" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

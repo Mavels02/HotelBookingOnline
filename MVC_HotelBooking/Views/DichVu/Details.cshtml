@@ -1,0 +1,23 @@
+﻿@model MVC_HotelBooking.Models.DichVu
+
+@{
+    ViewData["Title"] = "Chi tiết dịch vụ";
+}
+
+<h2>Chi tiết dịch vụ</h2>
+
+<div class="form-group">
+    <label>Mã dịch vụ:</label>
+    <p>@Model.MaDV</p>
+</div>
+<div class="form-group">
+    <label>Kiểu dịch vụ:</label>
+    <p>@Model.KieuDichVu</p>
+</div>
+<div class="form-group">
+    <label>Giá:</label>
+    <p>@Model.Gia.ToString("N0") VNĐ</p>
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.MaDV" class="btn btn-warning">✏️ Sửa</a>
+<a asp-action="Index" class="btn btn-secondary">Quay lại</a>

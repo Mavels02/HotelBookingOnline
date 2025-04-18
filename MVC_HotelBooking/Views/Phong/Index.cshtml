@@ -1,0 +1,27 @@
+﻿@model List<MVC_HotelBooking.Models.Phong>
+
+@{
+    ViewData["Title"] = "Danh sách phòng";
+}
+
+<h2>Danh sách phòng</h2>
+
+<a class="btn btn-primary mb-3" href="/Phong/Create">➕ Thêm phòng mới</a>
+
+<div class="row">
+    @foreach (var p in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="@p.ImageUrl" class="card-img-top" style="height:200px; object-fit:cover;" />
+                <div class="card-body">
+                    <h5 class="card-title">@p.TenPhong</h5>
+                    <p class="card-text">Giá: @p.GiaPhong VNĐ</p>
+                    <p class="card-text">Trạng thái: @p.TrangThai</p>
+                    <a href="/Phong/Edit/@p.MaP" class="btn btn-sm btn-warning">✏️ Sửa</a>
+                    <a href="/Phong/Delete/@p.MaP" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc muốn xoá?')">🗑 Xoá</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

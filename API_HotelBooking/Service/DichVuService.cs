@@ -12,31 +12,43 @@ namespace API_HotelBooking.Service
             _context = context;
         }
 
-        public async Task<IEnumerable<DichVu>> GetAllAsync() => await _context.DichVus.ToListAsync();
+        public async Task<IEnumerable<DichVu>> GetAllAsync()
+        {
+            return await _context.DichVus.ToListAsync();
+        }
 
-        public async Task<DichVu> GetByIdAsync(int id) => await _context.DichVus.FindAsync(id);
+        public async Task<DichVu> GetByIdAsync(int id)
+        {
+            return await _context.DichVus.FindAsync(id);
+        }
 
-        public async Task<DichVu> AddAsync(DichVu dichVu)
+        public async Task<DichVu> CreateAsync(DichVu dichVu)
         {
             _context.DichVus.Add(dichVu);
             await _context.SaveChangesAsync();
             return dichVu;
         }
 
-        public async Task UpdateAsync(DichVu dichVu)
+        public async Task<bool> UpdateAsync(int id, DichVu dichVu)
         {
-            _context.Entry(dichVu).State = EntityState.Modified;
+            var existing = await _context.DichVus.FindAsync(id);
+            if (existing == null) return false;
+
+            existing.KieuDichVu = dichVu.KieuDichVu;
+            existing.Gia = dichVu.Gia;
+
             await _context.SaveChangesAsync();
+            return true;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            var dv = await _context.DichVus.FindAsync(id);
-            if (dv != null)
-            {
-                _context.DichVus.Remove(dv);
-                await _context.SaveChangesAsync();
-            }
+            var dichVu = await _context.DichVus.FindAsync(id);
+            if (dichVu == null) return false;
+
+            _context.DichVus.Remove(dichVu);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

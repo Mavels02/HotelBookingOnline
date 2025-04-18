@@ -1,8 +1,11 @@
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpClient();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
@@ -23,6 +26,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Admin}/{action=Index}/{id?}");
 
 app.Run();

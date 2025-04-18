@@ -1,6 +1,10 @@
 ﻿@model MVC_HotelBooking.Models.DichVu
 
-<h2 class="text-center mt-4">Thêm Dịch Vụ</h2>
+@{
+    ViewData["Title"] = "Thêm dịch vụ";
+}
+
+<h2>Thêm dịch vụ</h2>
 
 <form asp-action="Create" method="post">
     <div class="form-group">
@@ -10,21 +14,18 @@
     </div>
     <div class="form-group">
         <label asp-for="Gia"></label>
-        <input asp-for="Gia" class="form-control" type="number" step="0.01" />
+        <input asp-for="Gia" class="form-control" />
         <span asp-validation-for="Gia" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary mt-3">Lưu</button>
+    <button type="submit" class="btn btn-success">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
 </form>
-
 @if (!ViewData.ModelState.IsValid)
 {
-    <div class="alert alert-danger mt-3">
-        <strong>Vui lòng kiểm tra lỗi sau:</strong>
-        <ul>
-            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-            {
-                <li>@error.ErrorMessage</li>
-            }
-        </ul>
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
     </div>
 }
