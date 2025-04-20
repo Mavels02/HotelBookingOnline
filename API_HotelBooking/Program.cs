@@ -1,3 +1,4 @@
+using API_HotelBooking.Data;
 using API_HotelBooking.Models;
 using API_HotelBooking.Service;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IDichVuService, DichVuService>();
 builder.Services.AddScoped<IPhongService, PhongService>();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+	options.IdleTimeout = TimeSpan.FromMinutes(30);
+	options.Cookie.HttpOnly = true;
+	options.Cookie.IsEssential = true;
+});
 
 // Add services to the container.
 
@@ -28,8 +36,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseSession();
 app.UseAuthorization();
+using (var scope = app.Services.CreateScope())
+{
+	var services = scope.ServiceProvider;
+	var context = services.GetRequiredService<AppDbContext>();
+	await SeedData.Initialize(services, context);
+}
 
 app.MapControllers();
 
