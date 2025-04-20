@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_HotelBooking.Models;
-using System.Net.Http;
-using System.Net.Http.Json;
+using Refit;
+using System.Text.Json;
 
 namespace MVC_HotelBooking.Controllers
 {
@@ -12,8 +12,8 @@ namespace MVC_HotelBooking.Controllers
         public PhongController(IHttpClientFactory httpClientFactory)
         {
             _httpClient = httpClientFactory.CreateClient();
-            _httpClient.BaseAddress = new Uri("https://localhost:7165/api/");
-        }
+			_httpClient.BaseAddress = new Uri("http://localhost:40841/api");
+		}
 
         public async Task<IActionResult> Index()
         {
@@ -101,5 +101,7 @@ namespace MVC_HotelBooking.Controllers
             var response = await _httpClient.DeleteAsync($"Phong/{id}");
             return RedirectToAction("Index");
         }
-    }
+		
+
+	}
 }

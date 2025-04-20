@@ -24,4 +24,10 @@ namespace MVC_HotelBooking.Models
 
         public IFormFile? ImageFile { get; set; }
     }
+	public class ApiResponse
+	{
+		public int TotalPages { get; set; }
+		public int CurrentPage { get; set; }
+		public List<Phong> Rooms { get; set; }
+	}
 }
