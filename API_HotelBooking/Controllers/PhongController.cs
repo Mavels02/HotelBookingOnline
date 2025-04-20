@@ -1,5 +1,6 @@
 ﻿using API_HotelBooking.Models;
 using API_HotelBooking.Service;
+using API_HotelBooking.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList.Extensions;
@@ -11,11 +12,11 @@ namespace API_HotelBooking.Controllers
     public class PhongController : Controller
     {
         private readonly IPhongService _phongService;
-		private readonly AppDbContext _context;
-		public PhongController(IPhongService phongService,AppDbContext context)
+
+        public PhongController(IPhongService phongService)
         {
             _phongService = phongService;
-            _context = context;
+
         }
 
         [HttpGet]
@@ -60,26 +61,38 @@ namespace API_HotelBooking.Controllers
             if (!result) return NotFound();
             return NoContent();
         }
-		[HttpGet]
-		public IActionResult GetAll(int page = 1, int pageSize = 6)
+		[HttpGet("page")]
+		public async Task<IActionResult> GetFiltered(
+			int page = 1,
+			int pageSize = 6,
+			int? loaiPhong = null,
+			decimal? min = null,
+			decimal? max = null,
+			string? status = null)
 		{
-			var totalRooms = _context.Phongs.Count();
-			var totalPages = (int)Math.Ceiling((double)totalRooms / pageSize);
+			var (rooms, totalPages) = await _phongService.GetPagedRoomsAsync(
+				page, pageSize, loaiPhong, min, max, status
+			);
 
-			var pagedRooms = _context.Phongs
-				.Skip((page - 1) * pageSize)
-				.Take(pageSize)
-				.ToList();
+            var roomViewModels = rooms.Select(p => new PhongViewModel
+            {
+                MaP = p.MaP,
+                TenPhong = p.TenPhong,
+                GiaPhong = p.GiaPhong,
+                TrangThai = p.TrangThai,
+                ImageUrl = p.ImageUrl,
+                LoaiPhongName = p.LoaiPhong.LoaiPhongName
+            });
 
-			var result = new
+			var result = new ApiPhongResponse
 			{
-				Rooms = pagedRooms,
+				Rooms = roomViewModels,
 				CurrentPage = page,
 				TotalPages = totalPages
 			};
 
 			return Ok(result);
 		}
-
 	}
 }
+

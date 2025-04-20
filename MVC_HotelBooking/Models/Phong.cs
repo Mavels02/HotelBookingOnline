@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace MVC_HotelBooking.Models
 {
@@ -23,11 +24,9 @@ namespace MVC_HotelBooking.Models
         public string? ImageUrl { get; set; }
 
         public IFormFile? ImageFile { get; set; }
-    }
-	public class ApiResponse
-	{
-		public int TotalPages { get; set; }
-		public int CurrentPage { get; set; }
-		public List<Phong> Rooms { get; set; }
+
+		public LoaiPhong? LoaiPhong { get; set; }
 	}
+   
+
 }

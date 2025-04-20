@@ -9,5 +9,9 @@ namespace API_HotelBooking.Service
         Task<Phong> CreateAsync(Phong phong);
         Task<bool> UpdateAsync(int id, Phong phong);
         Task<bool> DeleteAsync(int id);
-    }
+		Task<(List<Phong> Rooms, int TotalPages)> GetPagedRoomsAsync(
+	   int page, int pageSize,
+	   int? loaiPhong = null, decimal? min = null,
+	   decimal? max = null, string? status = null);
+	}
 }
