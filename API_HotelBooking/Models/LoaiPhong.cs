@@ -8,6 +8,6 @@ namespace API_HotelBooking.Models
         public int MaLP { get; set; }
         public string LoaiPhongName { get; set; }
 
-        public ICollection<Phong> Phongs { get; set; }
+        public ICollection<Phong>? Phongs { get; set; }
     }
 }

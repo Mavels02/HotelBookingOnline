@@ -6,8 +6,8 @@ namespace API_HotelBooking.Service
     {
         Task<IEnumerable<Phong>> GetAllAsync();
         Task<Phong?> GetByIdAsync(int id);
-        Task<Phong> CreateAsync(Phong phong);
-        Task<bool> UpdateAsync(int id, Phong phong);
+        Task<Phong> CreateAsync(Phong model);
+        Task<bool> UpdateAsync(int id, Phong model);
         Task<bool> DeleteAsync(int id);
     }
 }

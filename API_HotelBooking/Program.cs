@@ -1,5 +1,6 @@
 using API_HotelBooking.Models;
 using API_HotelBooking.Service;
+using API_HotelBooking.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IDichVuService, DichVuService>();
 builder.Services.AddScoped<IPhongService, PhongService>();
+builder.Services.AddScoped<ILoaiPhongService, LoaiPhongService>();
 
 // Add services to the container.
 
@@ -28,6 +30,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
 
 app.UseAuthorization();
 

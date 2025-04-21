@@ -1,0 +1,19 @@
+﻿@model MVC_HotelBooking.Models.LoaiPhong
+
+@{
+    ViewData["Title"] = "Chỉnh sửa loại phòng";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="MaLP" />
+    <div class="form-group">
+        <label for="LoaiPhongName">Tên loại phòng</label>
+        <input asp-for="LoaiPhongName" class="form-control" />
+        <span asp-validation-for="LoaiPhongName" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>

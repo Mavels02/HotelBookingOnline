@@ -9,51 +9,86 @@ namespace API_HotelBooking.Controllers
     public class PhongController : Controller
     {
         private readonly IPhongService _phongService;
+
         public PhongController(IPhongService phongService)
         {
             _phongService = phongService;
         }
 
+        // GET: api/Phong
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<Phong>>> GetAll()
         {
-            var data = await _phongService.GetAllAsync();
-            return Ok(data);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var data = await _phongService.GetByIdAsync(id);
-            if (data == null) return NotFound();
-            return Ok(data);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(Phong phong)
-        {
-            if (ModelState.IsValid)
+            var phongs = await _phongService.GetAllAsync();
+            // Trả về danh sách phòng với LoaiPhongName thay vì LoaiPhong
+            var phongViewModels = phongs.Select(p => new
             {
-                var created = await _phongService.CreateAsync(phong);
-                return CreatedAtAction(nameof(GetById), new { id = created.MaP }, created);
+                p.MaP,
+                p.MaLP,
+                p.TenPhong,
+                p.GiaPhong,
+                p.TrangThai,
+                LoaiPhongName = p.LoaiPhong.LoaiPhongName, // Trả về LoaiPhongName từ bảng LoaiPhong
+                p.ImageUrl
+            }).ToList();
+
+            return Ok(phongViewModels);
+        }
+
+        // GET: api/Phong/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Phong>> GetById(int id)
+        {
+            var phong = await _phongService.GetByIdAsync(id);
+            if (phong == null)
+            {
+                return NotFound();
             }
 
-            return BadRequest(ModelState);  // Trả về lỗi nếu Model không hợp lệ
+            // Trả về phòng với LoaiPhongName
+            var phongViewModel = new
+            {
+                phong.MaP,
+                phong.MaLP,
+                phong.TenPhong,
+                phong.GiaPhong,
+                phong.TrangThai,
+                LoaiPhongName = phong.LoaiPhong.LoaiPhongName, // Lấy LoaiPhongName
+                phong.ImageUrl
+            };
+
+            return Ok(phongViewModel);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Phong phong)
+        // POST: api/Phong
+        [HttpPost]
+        public async Task<ActionResult<Phong>> Create(Phong model)
         {
-            var result = await _phongService.UpdateAsync(id, phong);
-            if (!result) return NotFound();
+            var createdPhong = await _phongService.CreateAsync(model);
+            return CreatedAtAction(nameof(GetById), new { id = createdPhong.MaP }, createdPhong);
+        }
+
+        // PUT: api/Phong/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Edit(int id, Phong model)
+        {
+            var success = await _phongService.UpdateAsync(id, model);
+            if (!success)
+            {
+                return NotFound();
+            }
             return NoContent();
         }
 
+        // DELETE: api/Phong/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _phongService.DeleteAsync(id);
-            if (!result) return NotFound();
+            var success = await _phongService.DeleteAsync(id);
+            if (!success)
+            {
+                return NotFound();
+            }
             return NoContent();
         }
     }

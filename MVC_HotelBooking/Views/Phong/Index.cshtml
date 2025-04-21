@@ -1,27 +1,45 @@
-﻿@model List<MVC_HotelBooking.Models.Phong>
+﻿@model IEnumerable<MVC_HotelBooking.Models.Phong>
 
 @{
     ViewData["Title"] = "Danh sách phòng";
 }
 
-<h2>Danh sách phòng</h2>
+<h2>@ViewData["Title"]</h2>
 
-<a class="btn btn-primary mb-3" href="/Phong/Create">➕ Thêm phòng mới</a>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Thêm mới phòng</a>
+</p>
 
-<div class="row">
-    @foreach (var p in Model)
-    {
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src="@p.ImageUrl" class="card-img-top" style="height:200px; object-fit:cover;" />
-                <div class="card-body">
-                    <h5 class="card-title">@p.TenPhong</h5>
-                    <p class="card-text">Giá: @p.GiaPhong VNĐ</p>
-                    <p class="card-text">Trạng thái: @p.TrangThai</p>
-                    <a href="/Phong/Edit/@p.MaP" class="btn btn-sm btn-warning">✏️ Sửa</a>
-                    <a href="/Phong/Delete/@p.MaP" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc muốn xoá?')">🗑 Xoá</a>
-                </div>
-            </div>
-        </div>
-    }
-</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Tên phòng</th>
+            <th>Loại phòng</th>
+            <th>Giá</th>
+            <th>Trạng thái</th>
+            <th>Ảnh</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TenPhong</td>
+                <td>@item.LoaiPhongName</td>
+                <td>@item.GiaPhong.ToString("N0")</td>
+                <td>@item.TrangThai</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img src="@item.ImageUrl" width="100" />
+                    }
+                </td>
+                <td>
+                    <a asp-controller="Phong" asp-action="Edit" asp-route-id="@item.MaP">Sửa</a> |
+                    <a asp-controller="Phong" asp-action="Delete" asp-route-id="@item.MaP">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

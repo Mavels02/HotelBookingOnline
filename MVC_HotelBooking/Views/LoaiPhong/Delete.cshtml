@@ -1,0 +1,23 @@
+﻿@model MVC_HotelBooking.Models.LoaiPhong
+
+@{
+    ViewData["Title"] = "Xóa loại phòng";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Bạn có chắc muốn xóa loại phòng sau?</h4>
+<hr />
+<dl class="row">
+    <dt class="col-sm-3">Mã loại phòng</dt>
+    <dd class="col-sm-9">@Model.MaLP</dd>
+
+    <dt class="col-sm-3">Tên loại phòng</dt>
+    <dd class="col-sm-9">@Model.LoaiPhongName</dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="MaLP" />
+    <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
