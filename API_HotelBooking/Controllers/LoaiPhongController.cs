@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using Microsoft.AspNetCore.Mvc;
 using API_HotelBooking.Models;
 using Microsoft.EntityFrameworkCore;
@@ -77,4 +78,33 @@ namespace API_HotelBooking.Controllers
             return NoContent();
         }
     }
+=======
+﻿using API_HotelBooking.Service;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace API_HotelBooking.Controllers
+{
+	[Route("api/[controller]")]
+	[ApiController]
+	public class LoaiPhongController : ControllerBase
+	{
+		private readonly ILoaiPhongService _loaiPhongService;
+
+		public LoaiPhongController(ILoaiPhongService loaiPhongService)
+		{
+			_loaiPhongService = loaiPhongService;
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetAll()
+		{
+			var data = await _loaiPhongService.GetAllAsync();
+			return Ok(data);
+		}
+
+
+
+	}
+>>>>>>> 77cef63b639585e4ccc394b4dd4fe8bd8701ebbd
 }

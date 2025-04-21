@@ -1,4 +1,5 @@
 ﻿using API_HotelBooking.Models;
+<<<<<<< HEAD
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,3 +59,26 @@ namespace API_HotelBooking.Services
         }
     }
 }
+=======
+using API_HotelBooking.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using API_HotelBooking.Service;
+
+namespace API_HotelBooking.Service
+{
+	public class LoaiPhongService : ILoaiPhongService
+	{
+		private readonly AppDbContext _context;
+
+		public LoaiPhongService(AppDbContext context)
+		{
+			_context = context;
+		}
+
+		public async Task<IEnumerable<LoaiPhong>> GetAllAsync()
+		{
+			return await _context.LoaiPhongs.ToListAsync();
+		}
+	}
+}
+>>>>>>> 77cef63b639585e4ccc394b4dd4fe8bd8701ebbd

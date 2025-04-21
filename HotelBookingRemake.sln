@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API_HotelBooking", "API_HotelBooking\API_HotelBooking.csproj", "{D8D1B456-6B6C-47E4-AAFB-7141D8471ECB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6198882C-5477-4433-874B-40DEDF1A1D12} = {6198882C-5477-4433-874B-40DEDF1A1D12}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC_HotelBooking", "MVC_HotelBooking\MVC_HotelBooking.csproj", "{6198882C-5477-4433-874B-40DEDF1A1D12}"
 EndProject

@@ -1,3 +1,4 @@
+using API_HotelBooking.Data;
 using API_HotelBooking.Models;
 using API_HotelBooking.Service;
 using API_HotelBooking.Services;
@@ -8,10 +9,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+builder.Services.AddControllers()
+	.AddJsonOptions(options =>
+	{
+		options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+	});
 
 builder.Services.AddScoped<IDichVuService, DichVuService>();
 builder.Services.AddScoped<IPhongService, PhongService>();
 builder.Services.AddScoped<ILoaiPhongService, LoaiPhongService>();
+<<<<<<< HEAD
+=======
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+	options.IdleTimeout = TimeSpan.FromMinutes(30);
+	options.Cookie.HttpOnly = true;
+	options.Cookie.IsEssential = true;
+});
+>>>>>>> 77cef63b639585e4ccc394b4dd4fe8bd8701ebbd
 
 // Add services to the container.
 
@@ -30,10 +46,20 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+<<<<<<< HEAD
 
 app.UseStaticFiles();
 
+=======
+app.UseSession();
+>>>>>>> 77cef63b639585e4ccc394b4dd4fe8bd8701ebbd
 app.UseAuthorization();
+using (var scope = app.Services.CreateScope())
+{
+	var services = scope.ServiceProvider;
+	var context = services.GetRequiredService<AppDbContext>();
+	await SeedData.Initialize(services, context);
+}
 
 app.MapControllers();
 

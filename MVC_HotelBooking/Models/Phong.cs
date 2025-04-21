@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+=======
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
+>>>>>>> 77cef63b639585e4ccc394b4dd4fe8bd8701ebbd
 
 namespace MVC_HotelBooking.Models
 {
@@ -26,6 +31,7 @@ namespace MVC_HotelBooking.Models
         [Display(Name = "Chọn ảnh")]
         public IFormFile? ImageFile { get; set; }
 
+<<<<<<< HEAD
         public string? ImageUrl { get; set; }  // Trường hợp cần hiển thị lại ảnh khi sửa
 
         public string? LoaiPhongName { get; set; }  // Để nhận tên loại phòng từ API nếu cần
@@ -34,3 +40,10 @@ namespace MVC_HotelBooking.Models
         public List<SelectListItem>? LoaiPhongs { get; set; }
     }
 }
+=======
+		public LoaiPhong? LoaiPhong { get; set; }
+	}
+   
+
+}
+>>>>>>> 77cef63b639585e4ccc394b4dd4fe8bd8701ebbd

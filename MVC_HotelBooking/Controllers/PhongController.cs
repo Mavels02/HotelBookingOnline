@@ -1,10 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MVC_HotelBooking.Models;
+<<<<<<< HEAD
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
+=======
+using Refit;
+using System.Text.Json;
+>>>>>>> 77cef63b639585e4ccc394b4dd4fe8bd8701ebbd
 
 namespace MVC_HotelBooking.Controllers
 {
@@ -16,6 +21,7 @@ namespace MVC_HotelBooking.Controllers
 
         public PhongController(HttpClient httpClient, IWebHostEnvironment env)
         {
+<<<<<<< HEAD
             _httpClient = httpClient;
             _env = env;
         }
@@ -66,6 +72,11 @@ namespace MVC_HotelBooking.Controllers
 
             return loaiPhongDropdown;
         }
+=======
+            _httpClient = httpClientFactory.CreateClient();
+			_httpClient.BaseAddress = new Uri("http://localhost:40841/api");
+		}
+>>>>>>> 77cef63b639585e4ccc394b4dd4fe8bd8701ebbd
 
         public async Task<IActionResult> Index()
         {
@@ -224,5 +235,7 @@ namespace MVC_HotelBooking.Controllers
             await _httpClient.DeleteAsync($"{apiBaseUrl}/Phong/{id}");
             return RedirectToAction(nameof(Index));
         }
-    }
+		
+
+	}
 }
