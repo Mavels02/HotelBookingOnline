@@ -25,7 +25,8 @@ namespace API_HotelBooking.Models
         [StringLength(50)]
         public string TrangThai { get; set; }
 
-        public string? ImageUrl { get; set; } //Đường dẫn ảnh phòng
+        public string? ImageUrl { get; set; } 
+        public int SoLuongNguoiToiDa { get; set; }
 
         public ICollection<DatPhong> DatPhongs { get; set; }
     }

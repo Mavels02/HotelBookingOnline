@@ -23,7 +23,7 @@ namespace API_HotelBooking.Models
         public DateTime ThoiGianDat { get; set; }
         public DateTime ThoiGianCheckIn { get; set; }
         public DateTime ThoiGianCheckOut { get; set; }
-
+        public int SoNguoi {  get; set; }
         public string TrangThai { get; set; }
         public decimal TongTien { get; set; }
 

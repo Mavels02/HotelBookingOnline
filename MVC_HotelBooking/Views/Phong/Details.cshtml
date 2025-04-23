@@ -1,0 +1,58 @@
+﻿@model MVC_HotelBooking.ViewModel.PhongViewModel
+
+<div class="container py-5">
+    <div class="row g-4 align-items-start">
+        <!-- Hình ảnh phòng -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <img src="/image/@Model.ImageUrl" class="card-img-top rounded" alt="Ảnh phòng">
+            </div>
+        </div>
+
+        <!-- Thông tin phòng -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 p-4">
+                <h2 class="mb-3">@Model.TenPhong</h2>
+
+                <ul class="list-group list-group-flush mb-3">
+
+                    <li class="list-group-item d-flex justify-content-between">
+                        <strong>Giá phòng:</strong>
+                        <span>@Model.GiaPhong.ToString("N0") VNĐ</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <strong>Số người tối đa:</strong>
+                        <span>@Model.SoLuongNguoiToiDa người</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <strong>Trạng thái:</strong>
+                        <span class="badge bg-@(Model.TrangThai == "Trống" ? "success" : "secondary") px-3 py-2">
+                            @Model.TrangThai
+                        </span>
+                    </li>
+                </ul>
+
+
+
+                <div class="d-flex gap-3">
+                    @if (Model.TrangThai == "Trống")
+                    {
+                        <a asp-action="DatPhongChiTiet" asp-controller="DatPhong" asp-route-maPhong="@Model.MaP"
+                           class="btn btn-primary btn-lg shadow-sm">
+                            <i class="bi bi-calendar-check"></i> Đặt phòng ngay
+                        </a>
+                    }
+                    else
+                    {
+                        <button class="btn btn-outline-secondary btn-lg" disabled>
+                            Phòng đã được đặt
+                        </button>
+                    }
+
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-outline-dark btn-lg">
+                        Quay lại
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>

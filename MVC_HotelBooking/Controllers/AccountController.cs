@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Text.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using System.Reflection;
+using Microsoft.AspNetCore.Http;
 
 namespace MVC_HotelBooking.Controllers
 {
@@ -81,11 +82,18 @@ namespace MVC_HotelBooking.Controllers
 				var user = JsonSerializer.Deserialize<NguoiDung>(result, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
 				// Lưu session (hoặc cookie nếu muốn)
-				HttpContext.Session.SetString("Email", user.Email);
+
+
+				HttpContext.Session.SetInt32("Id", user.MaND);
+
+				HttpContext.Session.SetString("Email", user.Email);	
 				HttpContext.Session.SetString("UserName", user.Ten);
 				HttpContext.Session.SetString("VaiTro", user.VaiTro);
-
+				//var jsonUser = JsonConvert.SerializeObject(user);
+				//HttpContext.Session.SetString("User", jsonUser);
+				HttpContext.Session.SetString("User", JsonConvert.SerializeObject(user));
 				
+			
 				if (user.VaiTro == "Admin")
 				{
 					return RedirectToAction("Privacy", "Home");

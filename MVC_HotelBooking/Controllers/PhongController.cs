@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_HotelBooking.Models;
+using MVC_HotelBooking.ViewModel;
 using Refit;
 using System.Text.Json;
 
@@ -68,7 +69,7 @@ namespace MVC_HotelBooking.Controllers
             else
             {
                 var errorContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Error: " + errorContent);  // Xem thông tin lỗi từ API
+              
                 return View(phong);
             }
         }
@@ -101,7 +102,14 @@ namespace MVC_HotelBooking.Controllers
             var response = await _httpClient.DeleteAsync($"Phong/{id}");
             return RedirectToAction("Index");
         }
-		
+		public async Task<IActionResult> Details(int id)
+		{
+			var phong = await _httpClient.GetFromJsonAsync<PhongViewModel>($"api/Phong/{id}");
+			if (phong == null) return NotFound();
+
+			return View(phong); // => hiển thị ra chi tiết phòng trong view
+		}
+
 
 	}
 }

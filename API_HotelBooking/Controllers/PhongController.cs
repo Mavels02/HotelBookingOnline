@@ -81,8 +81,9 @@ namespace API_HotelBooking.Controllers
                 GiaPhong = p.GiaPhong,
                 TrangThai = p.TrangThai,
                 ImageUrl = p.ImageUrl,
-                LoaiPhongName = p.LoaiPhong.LoaiPhongName
-            });
+                LoaiPhongName = p.LoaiPhong.LoaiPhongName,
+				SoLuongNguoiToiDa = p.SoLuongNguoiToiDa
+			});
 
 			var result = new ApiPhongResponse
 			{

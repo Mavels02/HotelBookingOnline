@@ -1,0 +1,68 @@
+﻿@model MVC_HotelBooking.ViewModel.DatPhongViewModel
+                @using Microsoft.AspNetCore.Http
+  @inject IHttpContextAccessor Accessor
+@{
+    ViewData["Title"] = "Đặt phòng chi tiết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 600px; border-radius: 16px;">
+        <h2 class="text-center mb-4">Thông tin đặt phòng</h2>
+
+        <form asp-action="DatPhong" method="post">
+            @{
+                var userId = @Accessor.HttpContext.Session.GetInt32("Id");
+            }
+            <input type="hidden" asp-for="MaP"  />
+
+            <input type="hidden" asp-for="MaND" value="@userId" />
+           
+               <div class="mb-3">
+            <label class="form-label">Tên phòng</label>
+                <input asp-for="TenPhong" class="form-control" readonly />
+        </div>
+            <div class="form-group mb-3">
+                <label asp-for="ThoiGianCheckIn" class="form-label">Ngày nhận phòng</label>
+                <input asp-for="ThoiGianCheckIn" class="form-control" type="date" />
+                <span asp-validation-for="ThoiGianCheckIn" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ThoiGianCheckOut" class="form-label">Ngày trả phòng</label>
+                <input asp-for="ThoiGianCheckOut" class="form-control" type="date" />
+                <span asp-validation-for="ThoiGianCheckOut" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input asp-for="MaKM" type="hidden" value="" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="SoNguoi" class="form-label">Số người</label>
+                <input asp-for="SoNguoi" class="form-control" type="number" min="1" />
+                <span asp-validation-for="SoNguoi" class="text-danger"></span>
+            </div>
+
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <div>@error.ErrorMessage</div>
+                    }
+                </div>
+            }
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-5">Xác nhận đặt phòng</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
