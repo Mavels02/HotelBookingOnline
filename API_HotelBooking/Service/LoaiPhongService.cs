@@ -1,4 +1,5 @@
 ﻿using API_HotelBooking.Models;
+using API_HotelBooking.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace API_HotelBooking.Services
 {
-    public class LoaiPhongService : ILoaiPhongService
-    {
-        private readonly AppDbContext _context;
+	public class LoaiPhongService : ILoaiPhongService
+	{
+		private readonly AppDbContext _context;
 
-        public LoaiPhongService(AppDbContext context)
-        {
-            _context = context;
-        }
+		public LoaiPhongService(AppDbContext context)
+		{
+			_context = context;
+		}
 
         public async Task<IEnumerable<LoaiPhong>> GetLoaiPhongsAsync()
         {
@@ -47,7 +48,7 @@ namespace API_HotelBooking.Services
         }
 
         public async Task<bool> DeleteLoaiPhongAsync(int id)
-        {
+		{
             var loaiPhong = await _context.LoaiPhongs.FindAsync(id);
             if (loaiPhong == null)
                 return false;
@@ -55,6 +56,6 @@ namespace API_HotelBooking.Services
             _context.LoaiPhongs.Remove(loaiPhong);
             await _context.SaveChangesAsync();
             return true;
-        }
-    }
+		}
+	}
 }

@@ -1,8 +1,210 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿ @model MVC_HotelBooking.ViewModel.HomeViewModel
+@{
+    ViewData["Title"] = "Trang chủ";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+            <img src="/image/banner.png" class="d-block w-100" alt="First slide">
+        </div>
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+            <img src="/image/banner.png" class="d-block w-100" alt="Second slide">
+        </div>
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+            <img src="/image/banner.png" class="d-block w-100" alt="Third slide">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
+
+
+
+
+<section class="intro">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/79BEz0QI__E?si=mi9RvQ4B-XGv9kzI"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="col-md-6">
+                <h2>LuxStay FPTPolyTechnic</h2>
+
+                <p>
+                    Khách sạn LuxStay FPT Polytechnic là điểm dừng chân lý tưởng cho những ai tìm kiếm sự kết hợp
+                    hoàn hảo giữa tiện nghi hiện đại và không gian thư giãn. Với vị trí thuận lợi, thiết kế sang
+                    trọng và đội ngũ nhân viên tận tâm, LuxStay mang đến trải nghiệm nghỉ dưỡng tuyệt vời. Các phòng
+                    nghỉ được trang bị đầy đủ tiện nghi, đáp ứng nhu cầu của cả khách du lịch lẫn doanh nhân. Hãy
+                    đến LuxStay FPT Polytechnic để tận hưởng không gian nghỉ ngơi lý tưởng, kết hợp công việc và thư
+                    giãn.
+                </p>
+
+            </div>
+        </div>
+</section>
+
+<div class="container my-4">
+    <div class="row">
+        <!-- Form lọc - chiếm 3 cột -->
+        <div class="col-md-3">
+            <h5 class="mb-3">🔍 Tìm kiếm / Lọc</h5>
+            <form method="get" asp-controller="Home" asp-action="Index" class="border p-3 rounded shadow-sm bg-light">
+                <div class="mb-3">
+                    <label class="form-label">Loại phòng</label>
+                    <select name="loaiPhong" class="form-select">
+                        <option value="">-- Tất cả --</option>
+                        <option value="1">Phòng Đơn</option>
+                        <option value="2">Phòng Đôi</option>
+                        <option value="3">Phòng Gia Đình</option>
+                        <option value="4">Phòng Vip</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Giá từ</label>
+                    <input type="number" name="min" class="form-control" placeholder="Ví dụ: 100000" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Đến</label>
+                    <input type="number" name="max" class="form-control" placeholder="Ví dụ: 500000" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Trạng thái</label>
+                    <select name="status" class="form-select">
+                        <option value="">-- Tất cả --</option>
+                        <option value="Trống">Trống</option>
+                        <option value="Đã đặt">Đã đặt</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+            </form>
+        </div>
+
+        <!-- Danh sách phòng - chiếm 9 cột -->
+        <div class="col-md-9">
+            <h3 class="mb-4 text-center">Phòng</h3>
+            <div class="row">
+                @if (Model.Rooms != null && Model.Rooms.Any())
+                {
+                    foreach (var phong in Model.Rooms)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm">
+                                <img src="/image/@phong.ImageUrl" class="card-img-top" alt="@phong.TenPhong" style="height: 180px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">@phong.TenPhong</h5>
+                                    <p class="card-text">Giá: @phong.GiaPhong.ToString("N0") đ</p>
+                                    <p class="card-text">Trạng thái: @phong.TrangThai</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12">
+                        <p class="text-muted">Không có phòng nào phù hợp.</p>
+                    </div>
+                }
+            </div>
+
+            <!-- Phân trang -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a class="page-link"
+                             
+                               asp-route-page="@i">@i</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+<section class="facilities">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <div class="col-md-5">
+                <img src="/image/5.jpg" class="img-fluid rounded" alt="Tiện Nghi Sang Trọng">
+            </div>
+            <div class="col-md-7">
+                <h2 class="section-title">TIỆN NGHI SANG TRỌNG</h2>
+                <p class="lead">
+                    Chúng tôi mang lại không gian gian thoáng đãng và tiểu cảnh được chăm chút cho khách
+                    hàng.
+                </p>
+                <p>
+                    Khách sạn LuxStay FPT Polytechnic không chỉ là nơi dừng chân lý tưởng mà còn là biểu tượng của sự
+                    sang trọng và đẳng cấp. Mỗi chi tiết trong thiết kế của khách sạn đều được chăm chút tỉ mỉ, từ
+                    những món đồ nội thất cao cấp đến không gian rộng rãi, thoáng đãng, mang đến cảm giác thư giãn
+                    tối đa cho khách hàng. Các phòng nghỉ được trang bị đầy đủ tiện nghi hiện đại, với giường ngủ êm
+                    ái, hệ thống ánh sáng tinh tế và view đẹp mắt, giúp bạn tận hưởng những phút giây thư giãn tuyệt
+                    vời.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="news">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Góp ý khách hàng</h2>
+        <div class="row">
+
+            <div class="col-md-4 text-center">
+                <div class="card">
+                    <img src="/image/danh-gia-3.png" class="card-img-top" alt="Hãy trở thành nhà cung cấp dịch vụ">
+                    <div class="card-body">
+
+                        <p class="card-text">"Chúng tôi đã có một kỳ nghỉ tuyệt vời tại khách sạn này! Phòng ốc rất sạch sẽ, thoải mái và đầy đủ tiện nghi. Nhân viên cực kỳ thân thiện và luôn sẵn sàng hỗ trợ khi cần thiết. Bữa sáng rất ngon và đa dạng món ăn. Khách sạn có vị trí lý tưởng, gần các điểm tham quan nổi tiếng, nên rất thuận tiện cho việc di chuyển. Chắc chắn sẽ quay lại vào lần sau!"</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 ">
+                <div class="card">
+                    <img src="/image/danh-gia.png" class="card-img-top" alt="Hỗ trợ tập huấn và triển khai NukeViet">
+                    <div class="card-body">
+
+                        <p class="card-text text-center">"Tôi rất hài lòng về dịch vụ tại khách sạn này. Phòng ngủ rộng rãi, trang trí đẹp và thoáng mát. Tuy nhiên, tôi cảm thấy giá phòng hơi cao so với một số khách sạn khác trong khu vực. Nhưng bù lại, dịch vụ chăm sóc khách hàng rất tốt, và tiện ích tại khách sạn, như hồ bơi và spa, cũng rất tuyệt vời. Rất đáng để thử nếu bạn muốn một kỳ nghỉ thư giãn."</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/image/danh-gia-2.png" class="card-img-top"
+                         alt="NukeViet được Bộ GĐ&DT đưa vào hướng dẫn thực hiện">
+                    <div class="card-body">
+                        <p class="card-text">"Khách sạn này thật sự vượt ngoài mong đợi của tôi! Tôi đã có một kỳ nghỉ dài ở đây và mọi thứ đều tuyệt vời. Phòng được dọn dẹp sạch sẽ mỗi ngày, và nhân viên luôn niềm nở, lịch sự. Tôi đặc biệt ấn tượng với chất lượng dịch vụ phòng – rất nhanh chóng và chuyên nghiệp. Đặc biệt, bữa sáng buffet rất ngon và phong phú, khiến tôi bắt đầu một ngày mới đầy năng lượng. Đây sẽ là nơi tôi lựa chọn mỗi khi ghé thăm thành phố này."</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

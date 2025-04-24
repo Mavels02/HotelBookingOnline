@@ -1,4 +1,5 @@
 ﻿using API_HotelBooking.Models;
+using API_HotelBooking.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace API_HotelBooking.Service
@@ -61,6 +62,35 @@ namespace API_HotelBooking.Service
             _context.Phongs.Remove(phong);
             await _context.SaveChangesAsync();
             return true;
+        }
+        public async Task<(List<Phong> Rooms, int TotalPages)> GetPagedRoomsAsync(
+       int page, int pageSize,
+       int? loaiPhong = null, decimal? min = null,
+       decimal? max = null, string? status = null)
+        {
+            var query = _context.Phongs.Include(p => p.LoaiPhong).AsQueryable();
+
+            if (loaiPhong.HasValue)
+                query = query.Where(p => p.MaLP == loaiPhong.Value);
+
+            if (!string.IsNullOrEmpty(status))
+                query = query.Where(p => p.TrangThai.ToLower().Contains(status.ToLower()));
+
+            if (min.HasValue)
+                query = query.Where(p => p.GiaPhong >= min.Value);
+
+            if (max.HasValue)
+                query = query.Where(p => p.GiaPhong <= max.Value);
+
+            var totalRooms = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalRooms / pageSize);
+
+            var rooms = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (rooms, totalPages);
         }
     }
 }

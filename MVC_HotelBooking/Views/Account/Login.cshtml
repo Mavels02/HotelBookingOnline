@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Đăng Nhập";
+    Layout = null;
+
+}
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/register.css" rel="stylesheet" />
+
+<div class="form-container">
+    <!-- Form Đăng nhập -->
+    <div class="form-box" id="login-form">
+        <h2>Đăng Nhập</h2>
+        <form method="post">
+            <div class="input-group">
+                <label for="Email">Email</label>
+                <input type="email" id="Email" name="email" placeholder="Nhập email của bạn" required>
+                @if (ViewData.ModelState["email"]?.Errors.Count > 0)
+                {
+                    <span class="error">@ViewData.ModelState["email"].Errors[0].ErrorMessage</span>
+                }
+            </div>
+            <div class="input-group">
+                <label for="MatKhau">Mật khẩu</label>
+                <input type="password" id="MatKhau" name="matKhau" placeholder="Nhập mật khẩu" required>
+                @if (ViewData.ModelState["matKhau"]?.Errors.Count > 0)
+                {
+                    <span class="error">@ViewData.ModelState["matKhau"].Errors[0].ErrorMessage</span>
+                }
+            </div>
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="error-message text-danger">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+            <button type="submit">Đăng nhập</button>
+            <p>Chưa có tài khoản? <a asp-controller="Account" asp-action="Register">Đăng ký ngay</a></p>
+        </form>
+    </div>
+
+
+</div>
+<script src="/js/Login.js"></script>

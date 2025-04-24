@@ -1,6 +1,9 @@
 ﻿using API_HotelBooking.Models;
 using API_HotelBooking.Service;
+using API_HotelBooking.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using X.PagedList.Extensions;
 
 namespace API_HotelBooking.Controllers
 {
@@ -13,6 +16,7 @@ namespace API_HotelBooking.Controllers
         public PhongController(IPhongService phongService)
         {
             _phongService = phongService;
+
         }
 
         // GET: api/Phong
@@ -91,5 +95,38 @@ namespace API_HotelBooking.Controllers
             }
             return NoContent();
         }
-    }
+		[HttpGet("page")]
+		public async Task<IActionResult> GetFiltered(
+			int page = 1,
+			int pageSize = 6,
+			int? loaiPhong = null,
+			decimal? min = null,
+			decimal? max = null,
+			string? status = null)
+		{
+			var (rooms, totalPages) = await _phongService.GetPagedRoomsAsync(
+				page, pageSize, loaiPhong, min, max, status
+			);
+
+            var roomViewModels = rooms.Select(p => new PhongViewModel
+            {
+                MaP = p.MaP,
+                TenPhong = p.TenPhong,
+                GiaPhong = p.GiaPhong,
+                TrangThai = p.TrangThai,
+                ImageUrl = p.ImageUrl,
+                LoaiPhongName = p.LoaiPhong.LoaiPhongName
+            });
+
+			var result = new ApiPhongResponse
+			{
+				Rooms = roomViewModels,
+				CurrentPage = page,
+				TotalPages = totalPages
+			};
+
+			return Ok(result);
+		}
+	}
 }
+

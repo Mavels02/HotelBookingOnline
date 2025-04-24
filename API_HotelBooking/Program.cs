@@ -1,3 +1,4 @@
+using API_HotelBooking.Data;
 using API_HotelBooking.Models;
 using API_HotelBooking.Service;
 using API_HotelBooking.Services;
@@ -8,6 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+builder.Services.AddControllers()
+	.AddJsonOptions(options =>
+	{
+		options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+	});
 
 builder.Services.AddScoped<IDichVuService, DichVuService>();
 builder.Services.AddScoped<IPhongService, PhongService>();
@@ -34,6 +40,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseAuthorization();
+using (var scope = app.Services.CreateScope())
+{
+	var services = scope.ServiceProvider;
+	var context = services.GetRequiredService<AppDbContext>();
+	await SeedData.Initialize(services, context);
+}
 
 app.MapControllers();
 

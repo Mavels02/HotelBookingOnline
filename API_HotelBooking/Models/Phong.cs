@@ -24,6 +24,8 @@ namespace API_HotelBooking.Models
 
         public string? ImageUrl { get; set; } //Đường dẫn ảnh phòng
 
+        public int SoLuongNguoiToiDa { get; set; }
+
         public ICollection<DatPhong>? DatPhongs { get; set; }
     }
 }

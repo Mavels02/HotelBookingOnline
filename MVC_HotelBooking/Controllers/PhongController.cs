@@ -221,8 +221,20 @@ namespace MVC_HotelBooking.Controllers
         [HttpPost, ActionName("DeleteConfirmed")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _httpClient.DeleteAsync($"{apiBaseUrl}/Phong/{id}");
+            var res = await _httpClient.DeleteAsync($"{apiBaseUrl}/Phong/{id}");
+
+            if (!res.IsSuccessStatusCode)
+            {
+                // Nếu có lỗi xảy ra khi xóa, bạn có thể thông báo lỗi cho người dùng
+                var errorMessage = await res.Content.ReadAsStringAsync();
+                ModelState.AddModelError(string.Empty, "Lỗi khi xóa phòng: " + errorMessage);
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Sau khi xóa thành công, chuyển hướng về danh sách phòng
             return RedirectToAction(nameof(Index));
         }
+
+
     }
 }
