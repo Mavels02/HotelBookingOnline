@@ -1,10 +1,13 @@
 
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API_HotelBooking.Service;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using API_HotelBooking.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace API_HotelBooking.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class LoaiPhongController : ControllerBase
@@ -67,10 +70,13 @@ namespace API_HotelBooking.Controllers
         public async Task<IActionResult> DeleteLoaiPhong(int id)
         {
             var loaiPhong = await _context.LoaiPhongs.FindAsync(id);
+
+
             if (loaiPhong == null)
             {
                 return NotFound();
             }
+
 
             _context.LoaiPhongs.Remove(loaiPhong);
             await _context.SaveChangesAsync();
@@ -79,4 +85,4 @@ namespace API_HotelBooking.Controllers
         }
     }
 
-}
+

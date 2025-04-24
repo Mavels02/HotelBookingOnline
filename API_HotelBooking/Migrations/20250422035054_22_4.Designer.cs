@@ -4,6 +4,7 @@ using API_HotelBooking.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_HotelBooking.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250422035054_22_4")]
+    partial class _22_4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,9 +96,6 @@ namespace API_HotelBooking.Migrations
                     b.Property<int>("MaP")
                         .HasColumnType("int");
 
-                    b.Property<int>("SoNguoi")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("ThoiGianCheckIn")
                         .HasColumnType("datetime2");
 
@@ -141,6 +141,20 @@ namespace API_HotelBooking.Migrations
                     b.HasKey("MaDV");
 
                     b.ToTable("DichVus");
+
+                    b.HasData(
+                        new
+                        {
+                            MaDV = 1,
+                            Gia = 200000m,
+                            KieuDichVu = "Dịch vụ phòng VIP"
+                        },
+                        new
+                        {
+                            MaDV = 2,
+                            Gia = 50000m,
+                            KieuDichVu = "Dịch vụ dọn dẹp"
+                        });
                 });
 
             modelBuilder.Entity("API_HotelBooking.Models.KhuyenMai", b =>
@@ -181,7 +195,7 @@ namespace API_HotelBooking.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaLP"));
 
-                    b.Property<string>("TenLoai")
+                    b.Property<string>("LoaiPhongName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -255,9 +269,6 @@ namespace API_HotelBooking.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MaLP")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoLuongNguoiToiDa")
                         .HasColumnType("int");
 
                     b.Property<string>("TenPhong")
