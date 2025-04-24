@@ -12,15 +12,7 @@ namespace API_HotelBooking.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.InsertData(
-                table: "LoaiPhongs",
-                columns: new[] { "MaLP", "LoaiPhongName" },
-                values: new object[,]
-                {
-                    { 1, "Phòng đơn" },
-                    { 2, "Phòng đôi" },
-                    { 3, "Phòng VIP" }
-                });
+
         }
 
         /// <inheritdoc />

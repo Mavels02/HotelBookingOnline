@@ -37,16 +37,7 @@ namespace API_HotelBooking.Models
                 .WithMany(dp => dp.DatDichVus)
                 .HasForeignKey(ddv => ddv.MaDP);
 
-            modelBuilder.Entity<DichVu>().HasData(
-                new DichVu { MaDV = 1, KieuDichVu = "Dịch vụ phòng VIP", Gia = 200000m },
-                new DichVu { MaDV = 2, KieuDichVu = "Dịch vụ dọn dẹp", Gia = 50000m }
-            );
 
-            modelBuilder.Entity<LoaiPhong>().HasData(
-                new LoaiPhong { MaLP = 1, LoaiPhongName = "Phòng đơn" },
-                new LoaiPhong { MaLP = 2, LoaiPhongName = "Phòng đôi" },
-                new LoaiPhong { MaLP = 3, LoaiPhongName = "Phòng VIP" }
-            );
         }
     }
 }

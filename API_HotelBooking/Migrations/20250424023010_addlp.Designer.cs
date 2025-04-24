@@ -4,6 +4,7 @@ using API_HotelBooking.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_HotelBooking.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250424023010_addlp")]
+    partial class addlp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,23 +191,6 @@ namespace API_HotelBooking.Migrations
                     b.HasKey("MaLP");
 
                     b.ToTable("LoaiPhongs");
-
-                    b.HasData(
-                        new
-                        {
-                            MaLP = 1,
-                            LoaiPhongName = "Phòng đơn"
-                        },
-                        new
-                        {
-                            MaLP = 2,
-                            LoaiPhongName = "Phòng đôi"
-                        },
-                        new
-                        {
-                            MaLP = 3,
-                            LoaiPhongName = "Phòng VIP"
-                        });
                 });
 
             modelBuilder.Entity("API_HotelBooking.Models.NguoiDung", b =>

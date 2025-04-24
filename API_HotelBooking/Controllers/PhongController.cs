@@ -32,7 +32,9 @@ namespace API_HotelBooking.Controllers
                 p.TenPhong,
                 p.GiaPhong,
                 p.TrangThai,
-                LoaiPhongName = p.LoaiPhong.LoaiPhongName, // Trả về LoaiPhongName từ bảng LoaiPhong
+
+                LoaiPhongName = p.LoaiPhong.TenLoai, // Trả về LoaiPhongName từ bảng LoaiPhong
+
                 p.ImageUrl
             }).ToList();
 
@@ -57,7 +59,9 @@ namespace API_HotelBooking.Controllers
                 phong.TenPhong,
                 phong.GiaPhong,
                 phong.TrangThai,
-                LoaiPhongName = phong.LoaiPhong.LoaiPhongName, // Lấy LoaiPhongName
+
+                LoaiPhongName = phong.LoaiPhong.TenLoai, // Lấy LoaiPhongName
+
                 phong.ImageUrl
             };
 
@@ -115,8 +119,9 @@ namespace API_HotelBooking.Controllers
                 GiaPhong = p.GiaPhong,
                 TrangThai = p.TrangThai,
                 ImageUrl = p.ImageUrl,
-                LoaiPhongName = p.LoaiPhong.LoaiPhongName
-            });
+                LoaiPhongName = p.LoaiPhong.TenLoai,
+				SoLuongNguoiToiDa = p.SoLuongNguoiToiDa
+			});
 
 			var result = new ApiPhongResponse
 			{

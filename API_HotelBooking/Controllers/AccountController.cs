@@ -63,7 +63,7 @@ namespace API_HotelBooking.Controllers
 			if (user == null || !VerifyPassword(loginRequest.MatKhau, user.MatKhau))
 				return Unauthorized("Invalid credentials");
 
-			return Ok(new { user.Ten, user.Email, user.VaiTro });
+			return Ok(new { user.MaND, user.Ten, user.Email, user.VaiTro });
 		}
 
 		private string HashPassword(string password)

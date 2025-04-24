@@ -40,19 +40,19 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
-            <div class="col-md-6">
-                <h2>LuxStay FPTPolyTechnic</h2>
-
+            <div class="col-md-6 text-center    ">
+                <h2 class="section-title">LuxStay FPTPolyTechnic</h2>
+                
                 <p>
-                    Khách sạn LuxStay FPT Polytechnic là điểm dừng chân lý tưởng cho những ai tìm kiếm sự kết hợp
-                    hoàn hảo giữa tiện nghi hiện đại và không gian thư giãn. Với vị trí thuận lợi, thiết kế sang
-                    trọng và đội ngũ nhân viên tận tâm, LuxStay mang đến trải nghiệm nghỉ dưỡng tuyệt vời. Các phòng
-                    nghỉ được trang bị đầy đủ tiện nghi, đáp ứng nhu cầu của cả khách du lịch lẫn doanh nhân. Hãy
-                    đến LuxStay FPT Polytechnic để tận hưởng không gian nghỉ ngơi lý tưởng, kết hợp công việc và thư
-                    giãn.
+                    Khách sạn LuxStay FPT Polytechnic không chỉ là nơi dừng chân lý tưởng mà còn là biểu tượng của sự
+                    sang trọng và đẳng cấp. Mỗi chi tiết trong thiết kế của khách sạn đều được chăm chút tỉ mỉ, từ
+                    những món đồ nội thất cao cấp đến không gian rộng rãi, thoáng đãng, mang đến cảm giác thư giãn
+                    tối đa cho khách hàng. Các phòng nghỉ được trang bị đầy đủ tiện nghi hiện đại, với giường ngủ êm
+                    ái, hệ thống ánh sáng tinh tế và view đẹp mắt, giúp bạn tận hưởng những phút giây thư giãn tuyệt
+                    vời.
                 </p>
-
             </div>
+            
         </div>
 </section>
 
@@ -92,7 +92,7 @@
                     </select>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+                <button type="submit" class="btn btn-warning w-100">Tìm kiếm</button>
             </form>
         </div>
 
@@ -111,6 +111,7 @@
                                     <h5 class="card-title">@phong.TenPhong</h5>
                                     <p class="card-text">Giá: @phong.GiaPhong.ToString("N0") đ</p>
                                     <p class="card-text">Trạng thái: @phong.TrangThai</p>
+                                    <a asp-controller="Phong" asp-action="Details" asp-route-id="@phong.MaP" class="btn btn-warning mt-2">Xem chi tiết</a>
                                 </div>
                             </div>
                         </div>

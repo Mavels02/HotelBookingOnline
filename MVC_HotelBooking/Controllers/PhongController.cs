@@ -1,10 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MVC_HotelBooking.Models;
+
+using MVC_HotelBooking.ViewModel;
+using Refit;
+using System.Text.Json;
+
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
+
 
 namespace MVC_HotelBooking.Controllers
 {
@@ -137,6 +143,8 @@ namespace MVC_HotelBooking.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
+
+
                 var errorMessage = await response.Content.ReadAsStringAsync();
                 Console.WriteLine("Lỗi khi gọi API tạo phòng: " + errorMessage);
 
@@ -146,6 +154,7 @@ namespace MVC_HotelBooking.Controllers
                 // Thêm thông báo lỗi
                 ModelState.AddModelError(string.Empty, "Đã xảy ra lỗi khi thêm phòng. Chi tiết: " + errorMessage);
                 return View(model);
+
             }
 
             // Nếu thành công, chuyển hướng đến danh sách phòng
@@ -234,6 +243,16 @@ namespace MVC_HotelBooking.Controllers
             // Sau khi xóa thành công, chuyển hướng về danh sách phòng
             return RedirectToAction(nameof(Index));
         }
+
+		public async Task<IActionResult> Details(int id)
+		{
+			var phong = await _httpClient.GetFromJsonAsync<PhongViewModel>($"api/Phong/{id}");
+			if (phong == null) return NotFound();
+
+			return View(phong); // => hiển thị ra chi tiết phòng trong view
+		}
+
+
 
 
     }

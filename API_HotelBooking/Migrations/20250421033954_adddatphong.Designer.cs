@@ -4,6 +4,7 @@ using API_HotelBooking.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_HotelBooking.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250421033954_adddatphong")]
+    partial class adddatphong
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,6 +144,20 @@ namespace API_HotelBooking.Migrations
                     b.HasKey("MaDV");
 
                     b.ToTable("DichVus");
+
+                    b.HasData(
+                        new
+                        {
+                            MaDV = 1,
+                            Gia = 200000m,
+                            KieuDichVu = "Dịch vụ phòng VIP"
+                        },
+                        new
+                        {
+                            MaDV = 2,
+                            Gia = 50000m,
+                            KieuDichVu = "Dịch vụ dọn dẹp"
+                        });
                 });
 
             modelBuilder.Entity("API_HotelBooking.Models.KhuyenMai", b =>
@@ -181,30 +198,13 @@ namespace API_HotelBooking.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaLP"));
 
-                    b.Property<string>("TenLoai")
+                    b.Property<string>("LoaiPhongName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MaLP");
 
                     b.ToTable("LoaiPhongs");
-
-                    b.HasData(
-                        new
-                        {
-                            MaLP = 1,
-                            LoaiPhongName = "Phòng đơn"
-                        },
-                        new
-                        {
-                            MaLP = 2,
-                            LoaiPhongName = "Phòng đôi"
-                        },
-                        new
-                        {
-                            MaLP = 3,
-                            LoaiPhongName = "Phòng VIP"
-                        });
                 });
 
             modelBuilder.Entity("API_HotelBooking.Models.NguoiDung", b =>
@@ -267,7 +267,8 @@ namespace API_HotelBooking.Migrations
 
                     b.Property<string>("TrangThai")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("MaP");
 

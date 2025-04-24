@@ -9,5 +9,6 @@
 		public string TrangThai { get; set; }
 		public string ImageUrl { get; set; }
 		public string LoaiPhongName { get; set; }
+		public int SoLuongNguoiToiDa { get; set; }
 	}
 }

@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewData["Title"] = "Admin";
+}
+<div class="d-flex">
+    <!-- Sidebar -->
+    <aside class="sidebar p-4">
+        <h2 class="h4 mb-4 text-center">Admin Panel</h2>
+        <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" onclick="showSection('dashboard')">📊 Dashboard</a></li>
+            <li class="nav-item mb-2"><a href="#" onclick="showSection('booking-management')">📅 Quản lý đặt phòng</a></li>
+            <li class="nav-item mb-2"><a href="@Url.Action("Index", "Phong")">🏨 Quản lý phòng</a></li>
+            <li class="nav-item mb-2"><a href="@Url.Action("Index", "LoaiPhong")">🏨 Quản lý loại phòng</a></li>
+            <li class="nav-item mb-2"><a href="#" onclick="showSection('customer-management')">👥 Quản lý khách hàng</a></li>
+            <li class="nav-item mb-2"><a href="@Url.Action("Index", "DichVu")">👥 Quản lý dịch vụ</a></li>
+            <li class="nav-item mb-2"><a href="#" onclick="showSection('system-settings')">⚙ Thiết lập hệ thống</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1 p-4">
+        @RenderBody()
+        
+    </main>
+</div>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .sidebar {
+        width: 250px;
+        background: #343a40;
+        color: white;
+        min-height: 100vh;
+    }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+        }
+
+            .sidebar a:hover {
+                background: #495057;
+            }
+
+    .content-section {
+        display: none;
+    }
+
+    .card {
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+    table th, table td {
+        text-align: center;
+    }
+</style>
+<script>
+
+
+    function showSection(sectionId) {
+        let sections = document.querySelectorAll('.content-section');
+        sections.forEach(section => section.style.display = 'none');
+            document.getElementById(sectionId).style.display = 'block';
+        }
+</script>

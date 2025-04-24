@@ -10,8 +10,10 @@
     <input type="hidden" asp-for="MaLP" />
     <div class="form-group">
         <label for="LoaiPhongName">Tên loại phòng</label>
-        <input asp-for="LoaiPhongName" class="form-control" />
-        <span asp-validation-for="LoaiPhongName" class="text-danger"></span>
+
+        <input asp-for="TenLoai" class="form-control" />
+        <span asp-validation-for="TenLoai" class="text-danger"></span>
+
     </div>
     <br />
     <button type="submit" class="btn btn-primary">Cập nhật</button>

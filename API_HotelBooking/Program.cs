@@ -19,6 +19,9 @@ builder.Services.AddScoped<IDichVuService, DichVuService>();
 builder.Services.AddScoped<IPhongService, PhongService>();
 builder.Services.AddScoped<ILoaiPhongService, LoaiPhongService>();
 
+builder.Services.AddScoped<IDatPhongService, DatPhongService>();
+
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -26,6 +29,7 @@ builder.Services.AddSession(options =>
 	options.Cookie.HttpOnly = true;
 	options.Cookie.IsEssential = true;
 });
+
 
 // Add services to the container.
 

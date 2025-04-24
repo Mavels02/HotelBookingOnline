@@ -1,0 +1,84 @@
+﻿<div class="container my-4">
+    <div class="row">
+        <!-- Form lọc - chiếm 3 cột -->
+        <div class="col-md-3">
+            <h5 class="mb-3">🔍 Tìm kiếm / Lọc</h5>
+            <form method="get" asp-controller="Home" asp-action="Index" class="border p-3 rounded shadow-sm bg-light">
+                <div class="mb-3">
+                    <label class="form-label">Loại phòng</label>
+                    <select name="loaiPhong" class="form-select">
+                        <option value="">-- Tất cả --</option>
+                        <option value="1">Phòng Đơn</option>
+                        <option value="2">Phòng Đôi</option>
+                        <option value="3">Phòng Gia Đình</option>
+                        <option value="4">Phòng Vip</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Giá từ</label>
+                    <input type="number" name="min" class="form-control" placeholder="Ví dụ: 100000" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Đến</label>
+                    <input type="number" name="max" class="form-control" placeholder="Ví dụ: 500000" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Trạng thái</label>
+                    <select name="status" class="form-select">
+                        <option value="">-- Tất cả --</option>
+                        <option value="Trống">Trống</option>
+                        <option value="Đã đặt">Đã đặt</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-warning w-100">Tìm kiếm</button>
+            </form>
+        </div>
+        @model MVC_HotelBooking.ViewModel.HomeViewModel
+
+        <div class="col-md-9">
+            <h3 class="mb-4 text-center">Phòng</h3>
+            <div class="row">
+                @if (Model.Rooms != null && Model.Rooms.Any())
+                {
+                    foreach (var phong in Model.Rooms)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm">
+                                <img src="/image/@phong.ImageUrl" class="card-img-top" alt="@phong.TenPhong" style="height: 180px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">@phong.TenPhong</h5>
+                                    <p class="card-text">Giá: @phong.GiaPhong.ToString("N0") đ</p>
+                                    <p class="card-text">Trạng thái: @phong.TrangThai</p>
+                                    <a asp-controller="Phong" asp-action="Details" asp-route-id="@phong.MaP" class="btn btn-warning mt-2">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12">
+                        <p class="text-muted">Không có phòng nào phù hợp.</p>
+                    </div>
+                }
+            </div>
+
+            <!-- Phân trang -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a class="page-link"
+                               asp-route-page="@i">@i</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

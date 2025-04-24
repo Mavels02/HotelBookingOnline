@@ -1,3 +1,4 @@
+
 ﻿using API_HotelBooking.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -6,19 +7,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API_HotelBooking.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class LoaiPhongController : ControllerBase
-	{
+
+    [Route("api/[controller]")]
+    [ApiController]
+    public class LoaiPhongController : ControllerBase
+    {
         private readonly AppDbContext _context;
 
         public LoaiPhongController(AppDbContext context)
-		{
+        {
             _context = context;
-		}
+        }
 
         // GET: api/LoaiPhong
-		[HttpGet]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<LoaiPhong>>> GetLoaiPhongs()
         {
             return await _context.LoaiPhongs.Include(lp => lp.Phongs).ToListAsync();
@@ -53,7 +55,7 @@ namespace API_HotelBooking.Controllers
         public async Task<IActionResult> PutLoaiPhong(int id, LoaiPhong loaiPhong)
         {
             if (id != loaiPhong.MaLP)
-		{
+            {
                 return BadRequest();
             }
 
@@ -61,22 +63,26 @@ namespace API_HotelBooking.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-		}
+        }
 
         // DELETE: api/LoaiPhong/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLoaiPhong(int id)
         {
             var loaiPhong = await _context.LoaiPhongs.FindAsync(id);
+
+
             if (loaiPhong == null)
             {
                 return NotFound();
             }
+
 
             _context.LoaiPhongs.Remove(loaiPhong);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
-	}
-}
+    }
+
+
