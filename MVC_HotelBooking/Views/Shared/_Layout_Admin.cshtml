@@ -1,75 +1,171 @@
-﻿
+﻿  @using Microsoft.AspNetCore.Http
+  @inject IHttpContextAccessor Accessor
 @{
     ViewData["Title"] = "Admin";
 }
-<div class="d-flex">
-    <!-- Sidebar -->
-    <aside class="sidebar p-4">
-        <h2 class="h4 mb-4 text-center">Admin Panel</h2>
-        <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="#" onclick="showSection('dashboard')">📊 Dashboard</a></li>
-            <li class="nav-item mb-2"><a href="#" onclick="showSection('booking-management')">📅 Quản lý đặt phòng</a></li>
-            <li class="nav-item mb-2"><a href="@Url.Action("Index", "Phong")">🏨 Quản lý phòng</a></li>
-            <li class="nav-item mb-2"><a href="@Url.Action("Index", "LoaiPhong")">🏨 Quản lý loại phòng</a></li>
-            <li class="nav-item mb-2"><a href="#" onclick="showSection('customer-management')">👥 Quản lý khách hàng</a></li>
-            <li class="nav-item mb-2"><a href="@Url.Action("Index", "DichVu")">👥 Quản lý dịch vụ</a></li>
-            <li class="nav-item mb-2"><a href="#" onclick="showSection('system-settings')">⚙ Thiết lập hệ thống</a></li>
-        </ul>
-    </aside>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/HotelBooking.styles.css" asp-append-version="true" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/css/customer styles.css">
+<link rel="stylesheet" href="~/css/about styles.css">
+<link rel="stylesheet" href="~/css/contact styles.css">
+<link rel="stylesheet" href="~/css/service styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <!-- Main Content -->
-    <main class="flex-grow-1 p-4">
-        @RenderBody()
-        
-    </main>
-</div>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Lora:wght@400;700&display=swap"
+      rel="stylesheet">
 <style>
-    body {
+    .navbar {
+        padding: 10px 0;
+        display: flex;
+        justify-content: center;
         font-family: Arial, sans-serif;
     }
 
-    .sidebar {
-        width: 250px;
-        background: #343a40;
-        color: white;
-        min-height: 100vh;
+    .navbar-nav {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
     }
 
-        .sidebar a {
-            color: white;
+    .nav-link {
+        text-decoration: none;
+        color: #000; /* Màu chữ của các mục */
+        font-size: 16px;
+        padding: 10px 15px;
+        display: inline-block;
+    }
+
+
+
+
+    .nav-item.dropdown {
+        position: relative;
+    }
+
+    .nav-item .dropdown-toggle {
+        cursor: pointer;
+    }
+
+    .nav-item .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        min-width: 160px;
+    }
+
+        .nav-item .dropdown-menu .dropdown-item {
+            padding: 10px 20px;
             text-decoration: none;
-            padding: 10px;
-            display: block;
-            border-radius: 5px;
+            color: #000;
         }
 
-            .sidebar a:hover {
-                background: #495057;
+            .nav-item .dropdown-menu .dropdown-item:hover {
+                background-color: #f1f1f1; /* Nền khi hover */
+                color: #007bff; /* Màu chữ khi hover */
             }
+
+    /* Hiển thị dropdown khi hover */
+    .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+    }
+</style>
+<div class="d-flex">
+    <!-- Sidebar -->
+    <aside class="sidebar bg-dark text-white p-4 shadow-lg d-flex flex-column justify-content-between">
+        <div>
+            <!-- Logo -->
+            <div class="text-center mb-4">
+                <img src="~/image/LuxStay (500 x 200 px).png" alt="Logo" class="img-fluid rounded-circle mb-2" style="width: 80px; height: 80px;">
+                <h2 class="h5 fw-bold">🛠 <a class="nav-link dropdown-toggle">Xin chào, @Accessor.HttpContext.Session.GetString("UserName") </a></h2>
+            </div>
+
+            <!-- Menu -->
+            <ul class="nav flex-column gap-2">
+                <li><a class="nav-link text-white" href="#" onclick="showSection('dashboard')">📊 Dashboard</a></li>
+                <li><a class="nav-link text-white" href="#" onclick="showSection('booking-management')">📅 Quản lý đặt phòng</a></li>
+                <li><a class="nav-link text-white" href="@Url.Action("Index", "Phong")">🏨 Quản lý phòng</a></li>
+                <li><a class="nav-link text-white" href="@Url.Action("Index", "LoaiPhong")">🏨 Quản lý loại phòng</a></li>
+                <li><a class="nav-link text-white" href="#" onclick="showSection('customer-management')">👥 Quản lý khách hàng</a></li>
+                <li><a class="nav-link text-white" href="@Url.Action("Index", "DichVu")">🛎️ Quản lý dịch vụ</a></li>
+                <li><a class="nav-link text-white" href="#" onclick="showSection('system-settings')">⚙ Thiết lập hệ thống</a></li>
+            </ul>
+        </div>
+
+        <!-- Logout -->
+        <div class="text-center mt-4">
+            <form method="post" asp-controller="Account" asp-action="Logout">
+                <button type="submit" class="btn btn-outline-light w-100">🚪 Đăng xuất</button>
+            </form>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1 p-4 bg-light min-vh-100" style="margin-left: 260px;">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </main>
+</div>
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .sidebar {
+        width: 260px;
+        min-height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 260px;
+        padding: 2rem;
+    }
+
+    .nav-link {
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background-color: #495057;
+            color: #fff !important;
+        }
 
     .content-section {
         display: none;
     }
 
     .card {
-        border-radius: 10px;
-        transition: 0.3s;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
     }
 
         .card:hover {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
     table th, table td {
         text-align: center;
+        vertical-align: middle;
     }
 </style>
-<script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-
-    function showSection(sectionId) {
-        let sections = document.querySelectorAll('.content-section');
-        sections.forEach(section => section.style.display = 'none');
-            document.getElementById(sectionId).style.display = 'block';
-        }
-</script>

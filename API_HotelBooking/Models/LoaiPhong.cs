@@ -8,9 +8,7 @@ namespace API_HotelBooking.Models
         public int MaLP { get; set; }
 
         public string TenLoai { get; set; }
+		public ICollection<Phong>? Phongs { get; set; }
+	}
 
-        public ICollection<Phong>? Phongs { get; set; }
 
-
-    }
-}
