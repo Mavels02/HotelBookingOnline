@@ -1,10 +1,13 @@
 
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API_HotelBooking.Service;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using API_HotelBooking.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace API_HotelBooking.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class LoaiPhongController : ControllerBase
@@ -79,4 +82,5 @@ namespace API_HotelBooking.Controllers
 		}
 	}
 
-}
+
+

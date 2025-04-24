@@ -18,7 +18,10 @@ builder.Services.AddControllers()
 builder.Services.AddScoped<IDichVuService, DichVuService>();
 builder.Services.AddScoped<IPhongService, PhongService>();
 builder.Services.AddScoped<ILoaiPhongService, LoaiPhongService>();
+
 builder.Services.AddScoped<IDatPhongService, DatPhongService>();
+
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -45,7 +48,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+
+app.UseStaticFiles();
+
+
 app.UseSession();
+
 app.UseAuthorization();
 using (var scope = app.Services.CreateScope())
 {
