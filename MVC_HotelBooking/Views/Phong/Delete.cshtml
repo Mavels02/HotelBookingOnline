@@ -4,27 +4,21 @@
     ViewData["Title"] = "Xóa phòng";
 }
 
-<h2 class="mb-4 text-danger">Xác nhận xóa phòng</h2>
+<h2>Bạn có chắc chắn muốn xóa phòng này không?</h2>
 
-<div class="border p-4 bg-light rounded">
-    <h4>Bạn có chắc chắn muốn xóa phòng này?</h4>
-    <dl class="row mt-3">
-        <dt class="col-sm-3">Tên phòng</dt>
-        <dd class="col-sm-9">@Model.TenPhong</dd>
-
-        <dt class="col-sm-3">Giá phòng</dt>
-        <dd class="col-sm-9">@Model.GiaPhong</dd>
-
-        <dt class="col-sm-3">Trạng thái</dt>
-        <dd class="col-sm-9">@Model.TrangThai</dd>
-
-        <dt class="col-sm-3">URL ảnh</dt>
-        <dd class="col-sm-9">@Model.ImageUrl</dd>
-    </dl>
+<div>
+    <h4>Phòng: @Model.TenPhong</h4>
+    <p><strong>Loại phòng:</strong> @Model.LoaiPhongName</p>
+    <p><strong>Giá:</strong> @Model.GiaPhong.ToString("N0")</p>
+    <p><strong>Trạng thái:</strong> @Model.TrangThai</p>
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <p><strong>Ảnh:</strong><br /><img src="@Model.ImageUrl" width="120" /></p>
+    }
 
     <form asp-action="DeleteConfirmed" method="post">
         <input type="hidden" asp-for="MaP" />
-        <button type="submit" class="btn btn-danger">Xóa</button>
+        <button type="submit" class="btn btn-danger">Xóa</button> |
         <a asp-action="Index" class="btn btn-secondary">Hủy</a>
     </form>
 </div>

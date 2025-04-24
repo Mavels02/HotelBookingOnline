@@ -10,7 +10,7 @@
     Bạn có chắc chắn muốn xóa dịch vụ <strong>@Model.KieuDichVu</strong> không?
 </div>
 
-<form asp-action="DeleteConfirmed" method="post">
+<form asp-action="Delete" method="post">
     <input type="hidden" asp-for="MaDV" />
     <button type="submit" class="btn btn-danger">🗑️ Xác nhận xóa</button>
     <a asp-action="Index" class="btn btn-secondary">Quay lại</a>

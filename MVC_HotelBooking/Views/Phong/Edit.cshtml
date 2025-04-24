@@ -4,43 +4,50 @@
     ViewData["Title"] = "Chỉnh sửa phòng";
 }
 
-<h2 class="mb-4">Chỉnh sửa phòng</h2>
+<h2>@ViewData["Title"]</h2>
 
-<form asp-action="Edit" method="post">
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="MaP" />
 
-    <div class="mb-3">
-        <label asp-for="TenPhong" class="form-label"></label>
+    <div class="form-group">
+        <label asp-for="TenPhong" class="control-label"></label>
         <input asp-for="TenPhong" class="form-control" />
         <span asp-validation-for="TenPhong" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="MaLP" class="form-label">Mã loại phòng</label>
-        <input asp-for="MaLP" class="form-control" />
+    <div class="form-group">
+        <label asp-for="MaLP">Loại phòng</label>
+        <select asp-for="MaLP" class="form-control" asp-items="Model.LoaiPhongs"></select>
         <span asp-validation-for="MaLP" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="GiaPhong" class="form-label"></label>
+    <div class="form-group">
+        <label asp-for="GiaPhong" class="control-label"></label>
         <input asp-for="GiaPhong" class="form-control" />
         <span asp-validation-for="GiaPhong" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="TrangThai" class="form-label"></label>
+    <div class="form-group">
+        <label asp-for="TrangThai" class="control-label"></label>
         <input asp-for="TrangThai" class="form-control" />
         <span asp-validation-for="TrangThai" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="ImageUrl" class="form-label">URL hình ảnh</label>
-        <input asp-for="ImageUrl" class="form-control" />
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    <div class="form-group">
+        <label>Ảnh hiện tại</label><br />
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" width="120" />
+        }
     </div>
 
-    <button type="submit" class="btn btn-primary">Cập nhật</button>
-    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+    <div class="form-group">
+        <label asp-for="ImageFile" class="control-label"></label>
+        <input asp-for="ImageFile" type="file" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu thay đổi</button> |
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
 </form>
 
 @section Scripts {

@@ -4,44 +4,50 @@
     ViewData["Title"] = "Thêm phòng mới";
 }
 
-<h2 class="mb-4">Thêm phòng mới</h2>
+<h2>@ViewData["Title"]</h2>
 
-<form asp-action="Create" method="post">
-    <div class="mb-3">
-        <label asp-for="TenPhong" class="form-label"></label>
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="TenPhong"></label>
         <input asp-for="TenPhong" class="form-control" />
         <span asp-validation-for="TenPhong" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="MaLP" class="form-label">Mã loại phòng</label>
-        <input asp-for="MaLP" class="form-control" />
+    <div class="form-group">
+        <label asp-for="MaLP">Loại phòng</label>
+        <select asp-for="MaLP" asp-items="Model.LoaiPhongs" class="form-control">
+            <option value="">Chọn loại phòng</option>
+        </select>
         <span asp-validation-for="MaLP" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="GiaPhong" class="form-label"></label>
+    <div class="form-group">
+        <label asp-for="GiaPhong"></label>
         <input asp-for="GiaPhong" class="form-control" />
         <span asp-validation-for="GiaPhong" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="TrangThai" class="form-label"></label>
+    <div class="form-group">
+        <label asp-for="TrangThai"></label>
         <input asp-for="TrangThai" class="form-control" />
         <span asp-validation-for="TrangThai" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="ImageFile" class="form-label">Chọn ảnh phòng</label>
+    <div class="form-group">
+        <label asp-for="ImageFile">Chọn ảnh</label>
         <input asp-for="ImageFile" type="file" class="form-control" />
-        <span asp-validation-for="ImageFile" class="text-danger"></span>
     </div>
+
     <button type="submit" class="btn btn-success">Lưu</button>
-    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
 </form>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
 }

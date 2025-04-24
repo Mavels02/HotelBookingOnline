@@ -6,8 +6,13 @@ namespace API_HotelBooking.Models
     {
         [Key]
         public int MaLP { get; set; }
-        public string LoaiPhongName { get; set; }
+        public string TenLoai { get; set; }
+
+
+       
+
 		[JsonIgnore]
 		public ICollection<Phong> Phongs { get; set; }
+
     }
 }

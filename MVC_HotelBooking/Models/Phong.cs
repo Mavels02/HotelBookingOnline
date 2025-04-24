@@ -1,3 +1,6 @@
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
+
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
@@ -7,26 +10,37 @@ namespace MVC_HotelBooking.Models
     {
         public int MaP { get; set; }
 
-        [Required]
-        public int MaLP { get; set; }
+        [Display(Name = "Loại phòng")]
+        [Required(ErrorMessage = "Vui lòng chọn loại phòng")]
+        public int? MaLP { get; set; }
 
-        [Required]
+        [Display(Name = "Tên phòng")]
+        [Required(ErrorMessage = "Vui lòng nhập tên phòng")]
         [StringLength(100)]
-        public string TenPhong { get; set; }
+        public string? TenPhong { get; set; }
 
-        [Required]
+        [Display(Name = "Giá phòng")]
+        [Required(ErrorMessage = "Vui lòng nhập giá phòng")]
         public decimal GiaPhong { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string TrangThai { get; set; }
+        [Display(Name = "Trạng thái")]
+        public string? TrangThai { get; set; }
 
-        public string? ImageUrl { get; set; }
-
+        [Display(Name = "Chọn ảnh")]
         public IFormFile? ImageFile { get; set; }
 
-		public LoaiPhong? LoaiPhong { get; set; }
-	}
+
+        public string? ImageUrl { get; set; }  // Trường hợp cần hiển thị lại ảnh khi sửa
+
+        public string? LoaiPhongName { get; set; }  // Để nhận tên loại phòng từ API nếu cần
+
+
+        public List<SelectListItem>? LoaiPhongs { get; set; }
+    }
+}
+
+		
+	
    
 
-}
+

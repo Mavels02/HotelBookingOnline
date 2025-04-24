@@ -1,0 +1,34 @@
+﻿@model IEnumerable<MVC_HotelBooking.Models.LoaiPhong>
+
+@{
+    ViewData["Title"] = "Danh sách loại phòng";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">➕ Thêm loại phòng</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Mã loại phòng</th>
+            <th>Tên loại phòng</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaLP</td>
+                <td>@item.TenLoai</td>
+                <td>
+                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.MaLP">✏️ Sửa</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.MaLP">🗑️ Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
