@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="~/css/about styles.css">
     <link rel="stylesheet" href="~/css/contact styles.css">
     <link rel="stylesheet" href="~/css/service styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Lora:wght@400;700&display=swap"
           rel="stylesheet">
@@ -138,8 +140,10 @@
                     </nav>
                 </div>
 
-                <!-- Đặt phòng (CTA) -->
-                <div class="col-md-2 text-end">
+                <div class="col-md-2 text-end d-flex justify-content-end gap-2">
+                    <a asp-controller="GioHang" asp-action="Index" >
+                        <i class="fas fa-shopping-cart"></i> 
+                    </a>
                     <a asp-controller="DatPhong" asp-action="Index" class="btn btn-warning btn-book">Đặt phòng</a>
                 </div>
             </div>

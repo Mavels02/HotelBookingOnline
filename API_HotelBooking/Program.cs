@@ -1,6 +1,7 @@
 using API_HotelBooking.Data;
 using API_HotelBooking.Models;
 using API_HotelBooking.Service;
+using API_HotelBooking.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
