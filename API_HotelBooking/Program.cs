@@ -18,6 +18,16 @@ builder.Services.AddControllers()
 builder.Services.AddScoped<IDichVuService, DichVuService>();
 builder.Services.AddScoped<IPhongService, PhongService>();
 builder.Services.AddScoped<ILoaiPhongService, LoaiPhongService>();
+<<<<<<< HEAD
+=======
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+	options.IdleTimeout = TimeSpan.FromMinutes(30);
+	options.Cookie.HttpOnly = true;
+	options.Cookie.IsEssential = true;
+});
+>>>>>>> 77cef63b639585e4ccc394b4dd4fe8bd8701ebbd
 
 // Add services to the container.
 
@@ -36,9 +46,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+<<<<<<< HEAD
 
 app.UseStaticFiles();
 
+=======
+app.UseSession();
+>>>>>>> 77cef63b639585e4ccc394b4dd4fe8bd8701ebbd
 app.UseAuthorization();
 using (var scope = app.Services.CreateScope())
 {
