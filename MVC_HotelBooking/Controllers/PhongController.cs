@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MVC_HotelBooking.Models;
 using MVC_HotelBooking.ViewModel;
+using Newtonsoft.Json;
 using Refit;
+using System.Text;
 using System.Text.Json;
 
 namespace MVC_HotelBooking.Controllers
@@ -10,104 +13,156 @@ namespace MVC_HotelBooking.Controllers
     {
         private readonly HttpClient _httpClient;
 
-        public PhongController(IHttpClientFactory httpClientFactory)
+
+		public PhongController(IHttpClientFactory httpClientFactory)
         {
             _httpClient = httpClientFactory.CreateClient();
-			_httpClient.BaseAddress = new Uri("http://localhost:40841/api");
+			_httpClient.BaseAddress = new Uri("http://localhost:40841/");
+		
 		}
 
-        public async Task<IActionResult> Index()
-        {
-            var response = await _httpClient.GetAsync("Phong");
-            if (response.IsSuccessStatusCode)
-            {
-                var data = await response.Content.ReadFromJsonAsync<List<Phong>>();
-                return View(data);
-            }
+	
 
-            return View(new List<Phong>());
-        }
+		public async Task<IActionResult> Index()
+		{
+			try
+			{
+				var rooms = await _httpClient.GetFromJsonAsync<List<PhongViewModel>>("api/Phong");
+				return View(rooms);
+			}
+			catch (Exception ex)
+			{
+				// log lỗi (hoặc dùng TempData để báo lỗi ra View)
+				TempData["Error"] = "Lỗi khi tải danh sách phòng.";
+				return View(new List<PhongViewModel>());
+			}
+		}
 
-        public IActionResult Create()
-        {
-            return View();
-        }
+		public async Task<IActionResult> Create()
+		{
+			var model = new PhongViewModel
+			{
+				LoaiPhongs = await GetLoaiPhongDropdown()
+			};
+			return View(model);
+		}
 
-        [HttpPost]
-        public async Task<IActionResult> Create(Phong phong)
-        {
-            if (!ModelState.IsValid)
-            {
-                // Kiểm tra và in ra các lỗi validation nếu có
-                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-                {
-                    Console.WriteLine(error.ErrorMessage);  // In lỗi ra console (hoặc có thể ghi lại log)
-                }
-                return View(phong);
-            }
+		// POST: Tạo phòng
+		[HttpPost]
+		public async Task<IActionResult> Create(PhongViewModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				model.LoaiPhongs = await GetLoaiPhongDropdown();
+				return View(model);
+			}
 
-            // Nếu có ảnh, xử lý upload ảnh
-            if (phong.ImageFile != null)
-            {
-                // Xử lý lưu ảnh (ví dụ: lưu vào thư mục "wwwroot/images")
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", phong.ImageFile.FileName);
+			if (model.ImageFile != null)
+			{
+				var imageFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/image");
+				if (!Directory.Exists(imageFolderPath))
+				{
+					Directory.CreateDirectory(imageFolderPath);
+				}
 
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await phong.ImageFile.CopyToAsync(stream);
-                }
+				var fileName = Guid.NewGuid() + Path.GetExtension(model.ImageFile.FileName);
+				var filePath = Path.Combine(imageFolderPath, fileName);
 
-                // Cập nhật đường dẫn hình ảnh vào model
-                phong.ImageUrl = "/images/" + phong.ImageFile.FileName;
-            }
+				using (var stream = new FileStream(filePath, FileMode.Create))
+				{
+					await model.ImageFile.CopyToAsync(stream);
+				}
 
-            var response = await _httpClient.PostAsJsonAsync("Phong", phong);
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                var errorContent = await response.Content.ReadAsStringAsync();
-              
-                return View(phong);
-            }
-        }
+				model.ImageUrl = fileName;
+			}
 
-        public async Task<IActionResult> Edit(int id)
-        {
-            var response = await _httpClient.GetAsync($"Phong/{id}");
-            if (!response.IsSuccessStatusCode)
-                return NotFound();
+			var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+			var res = await _httpClient.PostAsync($"api/Phong", content);
 
-            var phong = await response.Content.ReadFromJsonAsync<Phong>();
-            return View(phong);
-        }
+			if (res.IsSuccessStatusCode) return RedirectToAction("Index");
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(int id, Phong phong)
-        {
-            if (!ModelState.IsValid)
-                return View(phong);
+			ModelState.AddModelError("", "Thêm phòng thất bại.");
+			model.LoaiPhongs = await GetLoaiPhongDropdown();
+			return View(model);
+		}
 
-            var response = await _httpClient.PutAsJsonAsync($"Phong/{id}", phong);
-            if (response.IsSuccessStatusCode)
-                return RedirectToAction("Index");
+		// GET: Form chỉnh sửa
+		public async Task<IActionResult> Edit(int id)
+		{
+			var res = await _httpClient.GetAsync($"api/Phong/{id}");
+			if (!res.IsSuccessStatusCode) return NotFound();
 
-            return View(phong);
-        }
+			var content = await res.Content.ReadAsStringAsync();
+			var model = JsonConvert.DeserializeObject<PhongViewModel>(content);
+			model.LoaiPhongs = await GetLoaiPhongDropdown();
+			return View(model);
+		}
 
-        public async Task<IActionResult> Delete(int id)
-        {
-            var response = await _httpClient.DeleteAsync($"Phong/{id}");
-            return RedirectToAction("Index");
-        }
+		// POST: Chỉnh sửa phòng
+		[HttpPost]
+		public async Task<IActionResult> Edit(int id, PhongViewModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				model.LoaiPhongs = await GetLoaiPhongDropdown();
+				return View(model);
+			}
+
+			if (model.ImageFile != null)
+			{
+				var fileName = Guid.NewGuid() + Path.GetExtension(model.ImageFile.FileName);
+				var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/image", fileName);
+
+				using (var stream = new FileStream(path, FileMode.Create))
+				{
+					await model.ImageFile.CopyToAsync(stream);
+				}
+
+				model.ImageUrl = "/image/" + fileName;
+			}
+
+			var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+			var res = await _httpClient.PutAsync($"api/Phong/{id}", content);
+
+			if (res.IsSuccessStatusCode) return RedirectToAction("Index");
+
+			ModelState.AddModelError("", "Cập nhật thất bại.");
+			model.LoaiPhongs = await GetLoaiPhongDropdown();
+			return View(model);
+		}
+
+		// GET: Xoá
+		public async Task<IActionResult> Delete(int id)
+		{
+			var res = await _httpClient.DeleteAsync($"api/Phong/{id}");
+			return RedirectToAction("Index");
+		}
+
+
+
+
+
+
 		public async Task<IActionResult> Details(int id)
 		{
 			var phong = await _httpClient.GetFromJsonAsync<PhongViewModel>($"api/Phong/{id}");
 			if (phong == null) return NotFound();
 
 			return View(phong); // => hiển thị ra chi tiết phòng trong view
+		}
+		private async Task<List<SelectListItem>> GetLoaiPhongDropdown()
+		{
+			var res = await _httpClient	.GetAsync("http://localhost:40841/api/loaiphong");
+			if (!res.IsSuccessStatusCode) return new List<SelectListItem>();
+
+			var json = await res.Content.ReadAsStringAsync();
+			var loaiPhongs = JsonConvert.DeserializeObject<List<dynamic>>(json);
+
+			return loaiPhongs.Select(x => new SelectListItem
+			{
+				Text = (string)x.tenLoai,
+				Value = x.maLP.ToString()
+			}).ToList();
 		}
 
 

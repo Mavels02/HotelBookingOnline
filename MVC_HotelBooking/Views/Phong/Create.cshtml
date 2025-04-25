@@ -1,46 +1,85 @@
-﻿@model MVC_HotelBooking.Models.Phong
+﻿@model MVC_HotelBooking.ViewModel.PhongViewModel
 
 @{
     ViewData["Title"] = "Thêm phòng mới";
+    Layout = "_Layout_Admin";
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<form asp-action="Create" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="TenPhong"></label>
-        <input asp-for="TenPhong" class="form-control" />
-        <span asp-validation-for="TenPhong" class="text-danger"></span>
-    </div>
 
-    <div class="form-group">
-        <label asp-for="MaLP">Loại phòng</label>
-        <select asp-for="MaLP" asp-items="Model.LoaiPhongs" class="form-control">
-            <option value="">Chọn loại phòng</option>
-        </select>
-        <span asp-validation-for="MaLP" class="text-danger"></span>
-    </div>
 
-    <div class="form-group">
-        <label asp-for="GiaPhong"></label>
-        <input asp-for="GiaPhong" class="form-control" />
-        <span asp-validation-for="GiaPhong" class="text-danger"></span>
-    </div>
 
-    <div class="form-group">
-        <label asp-for="TrangThai"></label>
-        <input asp-for="TrangThai" class="form-control" />
-        <span asp-validation-for="TrangThai" class="text-danger"></span>
-    </div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <div class="form-group">
-        <label asp-for="ImageFile">Chọn ảnh</label>
-        <input asp-for="ImageFile" type="file" class="form-control" />
-    </div>
+<style>
+    body {
+        background: #f8f9fa;
+    }
+    .form-container {
+        max-width: 700px;
+        margin: 50px auto;
+    }
+</style>
 
-    <button type="submit" class="btn btn-success">Lưu</button>
-    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
-</form>
+<div class="form-container">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-primary text-white rounded-top-4">
+            <h4 class="mb-0 text-center">🛏️ Thêm phòng mới</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Create" enctype="multipart/form-data" method="post">
+                <div class="mb-3">
+                    <label asp-for="TenPhong" class="form-label fw-semibold">Tên phòng</label>
+                    <input asp-for="TenPhong" class="form-control" placeholder="Nhập tên phòng" />
+                    <span asp-validation-for="TenPhong" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MaLP" class="form-label fw-semibold">Loại phòng</label>
+                    <select asp-for="MaLP" asp-items="Model.LoaiPhongs" class="form-select">
+                        <option value="">-- Chọn loại phòng --</option>
+                    </select>
+                    <span asp-validation-for="MaLP" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="GiaPhong" class="form-label fw-semibold">Giá phòng</label>
+                    <input asp-for="GiaPhong" class="form-control" placeholder="Nhập giá phòng" />
+                    <span asp-validation-for="GiaPhong" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="SoLuongNguoiToiDa" class="form-label fw-semibold">Số lượng người</label>
+                    <input asp-for="SoLuongNguoiToiDa" class="form-control" placeholder="Nhập số người" />
+                    <span asp-validation-for="SoLuongNguoiToiDa" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="TrangThai" class="form-label fw-semibold">Trạng thái</label>
+                    <select asp-for="TrangThai" class="form-select">
+                        <option value="Trống">Trống</option>
+                        <option value="Đã đặt">Đã đặt</option>
+                        <option value="Đang chờ thanh toán">Đang chờ thanh toán</option>
+                    </select>
+                    <span asp-validation-for="TrangThai" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ImageFile" class="form-label fw-semibold">Ảnh phòng</label>
+                    <input asp-for="ImageFile" type="file" class="form-control" />
+                    <span asp-validation-for="ImageFile" class="text-danger small"></span>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-outline-secondary">← Quay lại</a>
+                    <button type="submit" class="btn btn-primary">💾 Lưu phòng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 @if (!ViewData.ModelState.IsValid)
 {

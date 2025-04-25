@@ -96,7 +96,7 @@ namespace MVC_HotelBooking.Controllers
 			
 				if (user.VaiTro == "Admin")
 				{
-					return RedirectToAction("Privacy", "Home");
+					return RedirectToAction("Index", "Phong");
 				}
 				else if (user.VaiTro == "Receptionist")
 				{
