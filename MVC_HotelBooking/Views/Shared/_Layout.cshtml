@@ -84,6 +84,12 @@
     .nav-item.dropdown:hover .dropdown-menu {
         display: block;
     }
+    .search input {
+        width:550px;
+    }
+    .search a{
+        margin-left: 100px;
+    }
 </style>
 <body class="d-flex flex-column min-vh-100">
     <header class="header fixed-top">
@@ -116,6 +122,15 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Contact" asp-action="Index">Liên hệ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link position-relative d-inline-block" asp-controller="DatPhong" asp-action="GioHang" style="padding-right: 20px;">
+                                        <i class="bi bi-cart3" style="font-size: 20px;"></i>
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7rem;">
+                                            1
+                                        </span>
+                                        <span class="ms-1">Giỏ hàng</span>
+                                    </a>
                                 </li>
                                 @if (Accessor.HttpContext.Session.GetString("Email") != null)
                                 {
@@ -150,18 +165,18 @@
 
             <!-- Form tìm kiếm phòng -->
             <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <form class="search-form d-flex">
-                        <input type="text" class="form-control me-2" placeholder="Tìm kiếm phòng..."
-                               aria-label="Tìm kiếm phòng">
-                        <button class="btn btn-warning" type="submit">Tìm kiếm</button>
+                <div class="col-md-10">
+                    <form class="search d-flex align-items-center gap-2">
+                        <input type="text" class="form-control" placeholder="Tìm kiếm phòng..." aria-label="Tìm kiếm phòng">
+                        <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                        <a asp-controller="DatPhong" asp-action="Index" class="btn btn-warning">Đặt phòng</a>
                     </form>
                 </div>
-            </div>
+            </div>  
         </div>
     </header>
 
-    <main class="flex-fill" style="padding-top:180px">
+    <main class="flex-fill" style="padding-top:185px">
         <section>
             @RenderBody()
             @RenderSection("Scripts", required: false)
