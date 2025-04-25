@@ -37,7 +37,7 @@ namespace API_HotelBooking.Models
                 .WithMany(dp => dp.DatDichVus)
                 .HasForeignKey(ddv => ddv.MaDP);
 
-         
+
         }
     }
 }

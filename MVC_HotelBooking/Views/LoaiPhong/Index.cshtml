@@ -1,7 +1,8 @@
-﻿@model IEnumerable<MVC_HotelBooking.Models.LoaiPhong>
+﻿@model IEnumerable<MVC_HotelBooking.ViewModel.LoaiPhongViewModel>
 
 @{
     ViewData["Title"] = "Danh sách loại phòng";
+    Layout = "_Layout_Admin";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -23,7 +24,10 @@
         {
             <tr>
                 <td>@item.MaLP</td>
+
                 <td>@item.TenLoai</td>
+
+
                 <td>
                     <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.MaLP">✏️ Sửa</a>
                     <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.MaLP">🗑️ Xóa</a>
