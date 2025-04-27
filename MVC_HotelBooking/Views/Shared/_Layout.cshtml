@@ -104,7 +104,7 @@
                 </div>
 
                 <!-- Menu -->
-                <div class="col-md-8 d-flex justify-content-center">
+                <div class="col-md-10 d-flex justify-content-center">
                     <nav class="navbar navbar-expand-lg navbar-light ">
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
@@ -124,11 +124,9 @@
                                     <a class="nav-link" asp-controller="Contact" asp-action="Index">Liên hệ</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link position-relative d-inline-block" asp-controller="DatPhong" asp-action="GioHang" style="padding-right: 20px;">
+                                    <a class="nav-link position-relative d-inline-block" asp-controller="DatPhong" asp-action="Cart" style="padding-right: 20px;">
                                         <i class="bi bi-cart3" style="font-size: 20px;"></i>
-                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7rem;">
-                                            1
-                                        </span>
+                                        
                                         <span class="ms-1">Giỏ hàng</span>
                                     </a>
                                 </li>
@@ -155,12 +153,7 @@
                     </nav>
                 </div>
 
-                <div class="col-md-2 text-end d-flex justify-content-end gap-2">
-                    <a asp-controller="GioHang" asp-action="Index" >
-                        <i class="fas fa-shopping-cart"></i> 
-                    </a>
-                    <a asp-controller="DatPhong" asp-action="Index" class="btn btn-warning btn-book">Đặt phòng</a>
-                </div>
+               
             </div>
 
             <!-- Form tìm kiếm phòng -->

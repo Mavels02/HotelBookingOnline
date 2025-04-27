@@ -25,5 +25,7 @@ namespace MVC_HotelBooking.ViewModel
 		public string? TenLoai { get; set; }
 		public IFormFile? ImageFile { get; set; }
 		public List<SelectListItem>? LoaiPhongs { get; set; }
+		
+
 	}
 }

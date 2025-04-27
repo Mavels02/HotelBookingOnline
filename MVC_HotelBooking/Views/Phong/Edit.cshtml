@@ -35,12 +35,15 @@
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="TrangThai" class="form-label">Trạng thái</label>
-                            <select asp-for="TrangThai" class="form-select">
-                                <option value="true">Còn trống</option>
-                                <option value="false">Đã đặt</option>
-                            </select>
-                        </div>
+    <label asp-for="TrangThai" class="form-label">Trạng thái</label>
+   <select asp-for="TrangThai" class="form-select">
+                                <option value="Còn trống")">Còn trống</option>
+    <option value="Đã đặt" >Đã đặt</option>
+    <option value="Bảo trì">Bảo trì</option>
+    <option value="Đang dọn dẹp">Đang dọn dẹp</option>
+</select>
+    <span asp-validation-for="TrangThai" class="text-danger"></span>
+</div>
 
                         <div class="mb-3">
                             <label asp-for="MaLP" class="form-label">Loại phòng</label>
@@ -52,10 +55,9 @@
 
                         <div class="mb-3">
                             <label class="form-label">Ảnh hiện tại</label><br />
-                            @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                            {
-                                <img src="/image/@Model.ImageUrl" alt="Ảnh phòng" class="img-thumbnail mb-2" style="height: 150px;" />
-                            }
+
+                            <img type="hidden" src="/image/@Model.ImageUrl" alt="Ảnh phòng" class="img-thumbnail mb-2" style="height: 150px;" />
+                            
                         </div>
 
                         <div class="mb-3">
