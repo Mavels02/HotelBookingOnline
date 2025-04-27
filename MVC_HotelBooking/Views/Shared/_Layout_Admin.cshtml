@@ -85,8 +85,8 @@
         <div>
             <!-- Logo -->
             <div class="text-center mb-4">
-                <img src="~/image/LuxStay (500 x 200 px).png" alt="Logo" class="img-fluid rounded-circle mb-2" style="width: 80px; height: 80px;">
-                <h2 class="h5 fw-bold">🛠 <a class="nav-link dropdown-toggle">Xin chào, @Accessor.HttpContext.Session.GetString("UserName") </a></h2>
+                <img src="~/image/LuxStay (500 x 200 px).png" alt="Logo" class="img-fluid rounded-circle mb-2" >
+                <h2 class="h5 fw-bold">🛠 Xin chào, @Accessor.HttpContext.Session.GetString("UserName") </h2>
             </div>
 
             <!-- Menu -->
@@ -115,6 +115,7 @@
             @RenderBody()
         </div>
     </main>
+    @RenderSection("Scripts", required: false)
 </div>
 
 <style>

@@ -26,7 +26,7 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between">
                         <strong>Trạng thái:</strong>
-                        <span class="badge bg-@(Model.TrangThai == "Trống" ? "success" : "secondary") px-3 py-2">
+                        <span class="badge bg-@(Model.TrangThai == "Còn trống" ? "success" : "secondary") px-3 py-2">
                             @Model.TrangThai
                         </span>
                     </li>
@@ -35,7 +35,7 @@
 
 
                 <div class="d-flex gap-3">
-                    @if (Model.TrangThai == "Trống")
+                    @if (Model.TrangThai == "Còn trống")
                     {
                         <a asp-action="DatPhongChiTiet" asp-controller="DatPhong" asp-route-maPhong="@Model.MaP"
                            class="btn btn-primary btn-lg shadow-sm">

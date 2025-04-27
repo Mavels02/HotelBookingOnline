@@ -8,18 +8,18 @@ using Microsoft.EntityFrameworkCore;
 namespace API_HotelBooking.Controllers
 {
 
-    [Route("api/[controller]")]
-    [ApiController]
-    public class LoaiPhongController : ControllerBase
-    {
-        private readonly AppDbContext _context;
+	[Route("api/[controller]")]
+	[ApiController]
+	public class LoaiPhongController : ControllerBase
+	{
+		private readonly AppDbContext _context;
 
-        public LoaiPhongController(AppDbContext context)
-        {
-            _context = context;
-        }
+		public LoaiPhongController(AppDbContext context)
+		{
+			_context = context;
+		}
 
-		
+
 
 		// GET: api/LoaiPhong
 		[HttpGet]
@@ -81,6 +81,7 @@ namespace API_HotelBooking.Controllers
 			return NoContent();
 		}
 	}
+}
 
 
 

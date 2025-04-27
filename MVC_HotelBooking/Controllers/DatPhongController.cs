@@ -1,9 +1,11 @@
 ﻿using System.Text.Json;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MVC_HotelBooking.Models;
 using MVC_HotelBooking.ViewModel;
 using Newtonsoft.Json;
+using MVC_HotelBooking.Session;
 
 namespace MVC_HotelBooking.Controllers
 {
@@ -72,8 +74,12 @@ namespace MVC_HotelBooking.Controllers
 			  
 			var response = await _httpClient.PostAsJsonAsync("api/DatPhong/dat-phong", model);
 			if (response.IsSuccessStatusCode)
-			{
+			{   
+
 				var result = await response.Content.ReadFromJsonAsync<DatPhong>();
+				var cart = HttpContext.Session.Get<List<DatPhong>>("Cart") ?? new List<DatPhong>();
+				cart.Add(result);
+				HttpContext.Session.Set("Cart", cart);
 				return RedirectToAction("Index", "ThanhToan", new { id = result.MaDP });
 			}
 
@@ -98,9 +104,14 @@ namespace MVC_HotelBooking.Controllers
 				ModelState.AddModelError("", "Đã xảy ra lỗi khi xử lý phản hồi từ máy chủ.");
 			} 
 			return View("DatPhongChiTiet", model);
+
 		}
 
-
+		public IActionResult Cart()
+		{
+			var cart = HttpContext.Session.Get<List<DatPhong>>("Cart") ?? new List<DatPhong>();
+			return View(cart);
+		}
 
 	}
 }
