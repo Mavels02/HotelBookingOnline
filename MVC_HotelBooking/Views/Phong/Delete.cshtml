@@ -1,14 +1,15 @@
-﻿@model MVC_HotelBooking.Models.Phong
+﻿@model MVC_HotelBooking.ViewModel.PhongViewModel
 
 @{
     ViewData["Title"] = "Xóa phòng";
+    Layout = "_Layout_Admin";
 }
 
 <h2>Bạn có chắc chắn muốn xóa phòng này không?</h2>
 
 <div>
     <h4>Phòng: @Model.TenPhong</h4>
-    <p><strong>Loại phòng:</strong> @Model.LoaiPhongName</p>
+    <p><strong>Loại phòng:</strong> @Model.TenLoai</p>
     <p><strong>Giá:</strong> @Model.GiaPhong.ToString("N0")</p>
     <p><strong>Trạng thái:</strong> @Model.TrangThai</p>
     @if (!string.IsNullOrEmpty(Model.ImageUrl))

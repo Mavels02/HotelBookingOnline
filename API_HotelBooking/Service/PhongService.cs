@@ -13,57 +13,81 @@ namespace API_HotelBooking.Service
             _context = context;
         }
 
-        public async Task<IEnumerable<Phong>> GetAllAsync()
-        {
-            return await _context.Phongs.Include(p => p.LoaiPhong).ToListAsync();
-        }
+		public async Task<IEnumerable<PhongViewModel>> GetAllAsync()
+		{
+			return await _context.Phongs.Include(p => p.LoaiPhong)
+				.Select(p => new PhongViewModel
+				{
+					MaP = p.MaP,
+					TenPhong = p.TenPhong,
+					GiaPhong = p.GiaPhong,
+					TrangThai = p.TrangThai,
+					ImageUrl = p.ImageUrl,
+					SoLuongNguoiToiDa = p.SoLuongNguoiToiDa,
+					MaLP = p.MaLP,
+					TenLoai = p.LoaiPhong != null ? p.LoaiPhong.TenLoai : ""
+				}).ToListAsync();
+		}
 
-        public async Task<Phong?> GetByIdAsync(int id)
-        {
-            return await _context.Phongs.Include(p => p.LoaiPhong).FirstOrDefaultAsync(p => p.MaP == id);
-        }
+		public async Task<PhongViewModel> GetByIdAsync(int id)
+		{
+			var p = await _context.Phongs.Include(x => x.LoaiPhong).FirstOrDefaultAsync(p => p.MaP == id);
+			if (p == null) return null;
 
-        public async Task<Phong> CreateAsync(Phong model)
-        {
-            try
-            {
-                _context.Phongs.Add(model);
-                await _context.SaveChangesAsync();
-                return model;
-            }
-            catch (Exception ex)
-            {
-                // In ra lỗi cụ thể
-                Console.WriteLine("LỖI khi thêm phòng: " + ex.Message);
-                throw;
-            }
-        }
+			return new PhongViewModel
+			{
+				MaP = p.MaP,
+				TenPhong = p.TenPhong,
+				GiaPhong = p.GiaPhong,
+				TrangThai = p.TrangThai,
+				ImageUrl = p.ImageUrl,
+				SoLuongNguoiToiDa = p.SoLuongNguoiToiDa,
+				MaLP = p.MaLP,
+				TenLoai = p.LoaiPhong?.TenLoai
+			};
+		}
 
-        public async Task<bool> UpdateAsync(int id, Phong model)
-        {
-            var existing = await _context.Phongs.FindAsync(id);
-            if (existing == null) return false;
+		public async Task CreateAsync(PhongViewModel dto)
+		{
+			var p = new Phong
+			{
+				TenPhong = dto.TenPhong,
+				GiaPhong = dto.GiaPhong,
+				TrangThai = dto.TrangThai,
+				ImageUrl = dto.ImageUrl,
+				SoLuongNguoiToiDa = dto.SoLuongNguoiToiDa,
+				MaLP = dto.MaLP
+			};
+			_context.Phongs.Add(p);
+			await _context.SaveChangesAsync();
+		}
 
-            existing.TenPhong = model.TenPhong;
-            existing.GiaPhong = model.GiaPhong;
-            existing.TrangThai = model.TrangThai;
-            existing.MaLP = model.MaLP;
-            existing.ImageUrl = model.ImageUrl;
+		public async Task<bool> UpdateAsync(int id, PhongViewModel dto)
+		{
+			var p = await _context.Phongs.FindAsync(id);
+			if (p == null) return false;
 
-            await _context.SaveChangesAsync();
-            return true;
-        }
+			p.TenPhong = dto.TenPhong;
+			p.GiaPhong = dto.GiaPhong;
+			p.TrangThai = dto.TrangThai;
+			p.ImageUrl = dto.ImageUrl;
+			p.SoLuongNguoiToiDa = dto.SoLuongNguoiToiDa;
+			p.MaLP = dto.MaLP;
 
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var phong = await _context.Phongs.FindAsync(id);
-            if (phong == null) return false;
+			await _context.SaveChangesAsync();
+			return true;
+		}
 
-            _context.Phongs.Remove(phong);
-            await _context.SaveChangesAsync();
-            return true;
-        }
-        public async Task<(List<Phong> Rooms, int TotalPages)> GetPagedRoomsAsync(
+		public async Task<bool> DeleteAsync(int id)
+		{
+			var p = await _context.Phongs.FindAsync(id);
+			if (p == null) return false;
+
+			_context.Phongs.Remove(p);
+			await _context.SaveChangesAsync();
+			return true;
+		}
+		public async Task<(List<Phong> Rooms, int TotalPages)> GetPagedRoomsAsync(
        int page, int pageSize,
        int? loaiPhong = null, decimal? min = null,
        decimal? max = null, string? status = null)

@@ -1,54 +1,81 @@
-﻿@model MVC_HotelBooking.Models.Phong
+﻿@model MVC_HotelBooking.ViewModel.PhongViewModel
 
 @{
     ViewData["Title"] = "Chỉnh sửa phòng";
+    Layout = "_Layout_Admin";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-header bg-primary text-white text-center fs-4 rounded-top-4">
+                    <i class="bi bi-pencil-square text-center"></i> Chỉnh sửa Thông tin Phòng
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Edit" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="MaP" />
 
-<form asp-action="Edit" method="post" enctype="multipart/form-data">
-    <input type="hidden" asp-for="MaP" />
+                        <div class="mb-3">
+                            <label asp-for="TenPhong" class="form-label">Tên phòng</label>
+                            <input asp-for="TenPhong" class="form-control" />
+                            <span asp-validation-for="TenPhong" class="text-danger"></span>
+                        </div>
 
-    <div class="form-group">
-        <label asp-for="TenPhong" class="control-label"></label>
-        <input asp-for="TenPhong" class="form-control" />
-        <span asp-validation-for="TenPhong" class="text-danger"></span>
+                        <div class="mb-3">
+                            <label asp-for="GiaPhong" class="form-label">Giá</label>
+                            <input asp-for="GiaPhong" class="form-control" />
+                            <span asp-validation-for="GiaPhong" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="SoLuongNguoiToiDa" class="form-label">Số người tối đa</label>
+                            <input asp-for="SoLuongNguoiToiDa" class="form-control" />
+                            <span asp-validation-for="SoLuongNguoiToiDa" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="TrangThai" class="form-label">Trạng thái</label>
+                            <select asp-for="TrangThai" class="form-select">
+                                <option value="true">Còn trống</option>
+                                <option value="false">Đã đặt</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="MaLP" class="form-label">Loại phòng</label>
+                            <select asp-for="MaLP" class="form-select" asp-items="Model.LoaiPhongs">
+                                <option value="">-- Chọn loại phòng --</option>
+                            </select>
+                            <span asp-validation-for="MaLP" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Ảnh hiện tại</label><br />
+                            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                            {
+                                <img src="/image/@Model.ImageUrl" alt="Ảnh phòng" class="img-thumbnail mb-2" style="height: 150px;" />
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ImageFile" class="form-label">Chọn ảnh mới (nếu muốn thay)</label>
+                            <input asp-for="ImageFile" type="file" class="form-control" />
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-save"></i> Cập nhật
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="MaLP">Loại phòng</label>
-        <select asp-for="MaLP" class="form-control" asp-items="Model.LoaiPhongs"></select>
-        <span asp-validation-for="MaLP" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="GiaPhong" class="control-label"></label>
-        <input asp-for="GiaPhong" class="form-control" />
-        <span asp-validation-for="GiaPhong" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="TrangThai" class="control-label"></label>
-        <input asp-for="TrangThai" class="form-control" />
-        <span asp-validation-for="TrangThai" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label>Ảnh hiện tại</label><br />
-        @if (!string.IsNullOrEmpty(Model.ImageUrl))
-        {
-            <img src="@Model.ImageUrl" width="120" />
-        }
-    </div>
-
-    <div class="form-group">
-        <label asp-for="ImageFile" class="control-label"></label>
-        <input asp-for="ImageFile" type="file" class="form-control" />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Lưu thay đổi</button> |
-    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
-</form>
+</div>
 
 @section Scripts {
     @{
