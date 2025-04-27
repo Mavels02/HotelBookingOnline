@@ -19,12 +19,25 @@ namespace API_HotelBooking.Controllers
 
         }
 
-		[HttpGet]
-		public async Task<ActionResult<IEnumerable<PhongViewModel>>> GetAll()
-		{
-			var rooms = await _phongService.GetAllAsync();
-			return Ok(rooms);
-		}
+        // GET: api/Phong
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Phong>>> GetAll()
+        {
+            var phongs = await _phongService.GetAllAsync();
+            // Trả về danh sách phòng với LoaiPhongName thay vì LoaiPhong
+            var phongViewModels = phongs.Select(p => new
+            {
+                p.MaP,
+                p.MaLP,
+                p.TenPhong,
+                p.GiaPhong,
+                p.TrangThai,
+                LoaiPhongName = p.LoaiPhong.TenLoai, // Trả về LoaiPhongName từ bảng LoaiPhong
+                p.ImageUrl
+            }).ToList();
+
+            return Ok(phongViewModels);
+        }
 
 		// GET: api/Phong/5
 		[HttpGet("{id}")]
@@ -34,8 +47,20 @@ namespace API_HotelBooking.Controllers
 			if (room == null)
 				return NotFound();
 
-			return Ok(room);
-		}
+            // Trả về phòng với LoaiPhongName
+            var phongViewModel = new
+            {
+                phong.MaP,
+                phong.MaLP,
+                phong.TenPhong,
+                phong.GiaPhong,
+                phong.TrangThai,
+                LoaiPhongName = phong.LoaiPhong.TenLoai, // Lấy LoaiPhongName
+                phong.ImageUrl
+            };
+
+            return Ok(phongViewModel);
+        }
 
 		// POST: api/Phong
 		[HttpPost]

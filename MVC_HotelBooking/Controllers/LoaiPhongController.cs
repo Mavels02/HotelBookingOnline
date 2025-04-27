@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_HotelBooking.Models;
+using MVC_HotelBooking.ViewModel;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -7,71 +8,54 @@ namespace MVC_HotelBooking.Controllers
 {
     public class LoaiPhongController : Controller
     {
-        private readonly HttpClient _httpClient;
+		private readonly HttpClient _httpClient;
 
-        public LoaiPhongController(IHttpClientFactory httpClientFactory)
-        {
-            _httpClient = httpClientFactory.CreateClient();
-        }
+		public LoaiPhongController()
+		{
+			_httpClient = new HttpClient();
+			_httpClient.BaseAddress = new Uri("http://localhost:40841/api/");
+		}
 
-        // Hiển thị danh sách loại phòng
-        public async Task<IActionResult> Index()
-        {
-            var loaiPhongs = await _httpClient.GetFromJsonAsync<List<LoaiPhong>>("https://localhost:7077/api/LoaiPhong");
-            return View(loaiPhongs);
-        }
+		public async Task<IActionResult> Index()
+		{
+			var response = await _httpClient.GetAsync("LoaiPhong");
+			var data = await response.Content.ReadAsStringAsync();
+			var loaiPhongs = JsonConvert.DeserializeObject<List<LoaiPhongViewModel>>(data);
+			return View(loaiPhongs);
+		}
 
-        // Tạo mới loại phòng
-        public IActionResult Create()
-        {
-            return View();
-        }
+		public IActionResult Create() => View();
 
-        [HttpPost]
-        public async Task<IActionResult> Create(LoaiPhong model)
-        {
-            var response = await _httpClient.PostAsJsonAsync("https://localhost:7077/api/LoaiPhong", model);
-            if (response.IsSuccessStatusCode)
-                return RedirectToAction(nameof(Index));
-            var content = await response.Content.ReadAsStringAsync();
-            ModelState.AddModelError(string.Empty, $"Lỗi API: {content}");
-            return View(model);
-        }
+		[HttpPost]
+		public async Task<IActionResult> Create(LoaiPhongViewModel model)
+		{
+			var json = JsonConvert.SerializeObject(model);
+			var content = new StringContent(json, Encoding.UTF8, "application/json");
+			var response = await _httpClient.PostAsync("LoaiPhong", content);
+			return RedirectToAction("Index");
+		}
 
-        // Chỉnh sửa loại phòng
-        public async Task<IActionResult> Edit(int id)
-        {
-            var loaiPhong = await _httpClient.GetFromJsonAsync<LoaiPhong>($"https://localhost:7077/api/LoaiPhong/{id}");
-            if (loaiPhong == null)
-                return NotFound();
-            return View(loaiPhong);
-        }
+		public async Task<IActionResult> Edit(int id)
+		{
+			var response = await _httpClient.GetAsync($"LoaiPhong/{id}");
+			var data = await response.Content.ReadAsStringAsync();
+			var model = JsonConvert.DeserializeObject<LoaiPhongViewModel>(data);
+			return View(model);
+		}
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(LoaiPhong model)
-        {
-            var response = await _httpClient.PutAsJsonAsync($"https://localhost:7077/api/LoaiPhong/{model.MaLP}", model);
-            if (response.IsSuccessStatusCode)
-                return RedirectToAction(nameof(Index));
-            return View(model);
-        }
+		[HttpPost]
+		public async Task<IActionResult> Edit(LoaiPhongViewModel model)
+		{
+			var json = JsonConvert.SerializeObject(model);
+			var content = new StringContent(json, Encoding.UTF8, "application/json");
+			await _httpClient.PutAsync($"LoaiPhong/{model.MaLP}", content);
+			return RedirectToAction("Index");
+		}
 
-        // Xóa loại phòng
-        public async Task<IActionResult> Delete(int id)
-        {
-            var loaiPhong = await _httpClient.GetFromJsonAsync<LoaiPhong>($"https://localhost:7077/api/LoaiPhong/{id}");
-            if (loaiPhong == null)
-                return NotFound();
-            return View(loaiPhong);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var response = await _httpClient.DeleteAsync($"https://localhost:7077/api/LoaiPhong/{id}");
-            if (response.IsSuccessStatusCode)
-                return RedirectToAction(nameof(Index));
-            return View();
-        }
-    }
+		public async Task<IActionResult> Delete(int id)
+		{
+			await _httpClient.DeleteAsync($"LoaiPhong/{id}");
+			return RedirectToAction("Index");
+		}
+	}
 }

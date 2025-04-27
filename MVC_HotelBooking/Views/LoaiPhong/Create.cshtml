@@ -1,7 +1,8 @@
-﻿@model MVC_HotelBooking.Models.LoaiPhong
+﻿@model MVC_HotelBooking.ViewModel.LoaiPhongViewModel
 
 @{
     ViewData["Title"] = "Thêm loại phòng";
+    Layout = "_Layout_Admin";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -9,8 +10,10 @@
 <form asp-action="Create" method="post">
     <div class="form-group">
         <label for="LoaiPhongName">Tên loại phòng</label>
+
         <input asp-for="TenLoai" class="form-control" />
         <span asp-validation-for="TenLoai" class="text-danger"></span>
+
     </div>
     <br />
     <button type="submit" class="btn btn-primary">Lưu</button>
