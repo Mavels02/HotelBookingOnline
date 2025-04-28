@@ -20,15 +20,19 @@ namespace MVC_HotelBooking.Controllers
 		}
 
 
-		public async Task<IActionResult> Index(int page = 1, int? loaiPhong = null, string? status = null, decimal? min = null, decimal? max = null)
+		public async Task<IActionResult> Index(int page = 1, int? loaiPhong = null, string? status = null, decimal? min = null, decimal? max = null, string? search = null)
 		{
 			string url = $"api/Phong/page?page={page}&pageSize=6";
-
+			if (!string.IsNullOrEmpty(search))
+			{
+				url += $"&search={search}";
+			}
 			var queryParams = new List<string>();
 			if (loaiPhong.HasValue) queryParams.Add($"loaiPhong={loaiPhong}");
 			if (!string.IsNullOrEmpty(status)) queryParams.Add($"status={status}");
 			if (min.HasValue) queryParams.Add($"min={min}");
 			if (max.HasValue) queryParams.Add($"max={max}");
+			if (!string.IsNullOrEmpty(search)) queryParams.Add($"search={search}");
 			if (queryParams.Any()) url += "&" + string.Join("&", queryParams);
 
 			var response = await _httpClient.GetFromJsonAsync<ApiPhongResponse>(url);
@@ -43,7 +47,8 @@ namespace MVC_HotelBooking.Controllers
 				SelectedLoaiPhong = loaiPhong,
 				SelectedStatus = status,
 				MinPrice = min,
-				MaxPrice = max
+				MaxPrice = max,
+				SearchQuery = search
 			};
 
 			return View(viewModel);

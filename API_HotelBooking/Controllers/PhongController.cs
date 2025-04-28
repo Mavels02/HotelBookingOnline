@@ -32,7 +32,7 @@ namespace API_HotelBooking.Controllers
                 p.TenPhong,
                 p.GiaPhong,
                 p.TrangThai,
-                LoaiPhongName = p.LoaiPhong.TenLoai, // Trả về LoaiPhongName từ bảng LoaiPhong
+                LoaiPhongName = p.TenLoai, // Trả về LoaiPhongName từ bảng LoaiPhong
                 p.ImageUrl
             }).ToList();
 
@@ -50,13 +50,13 @@ namespace API_HotelBooking.Controllers
             // Trả về phòng với LoaiPhongName
             var phongViewModel = new
             {
-                phong.MaP,
-                phong.MaLP,
-                phong.TenPhong,
-                phong.GiaPhong,
-                phong.TrangThai,
-                LoaiPhongName = phong.LoaiPhong.TenLoai, // Lấy LoaiPhongName
-                phong.ImageUrl
+				room.MaP,
+				room.MaLP,
+				room.TenPhong,
+                room.GiaPhong,
+				room.TrangThai,
+                LoaiPhongName = room.TenLoai, // Lấy LoaiPhongName
+				room.ImageUrl
             };
 
             return Ok(phongViewModel);
@@ -99,10 +99,10 @@ namespace API_HotelBooking.Controllers
 			int? loaiPhong = null,
 			decimal? min = null,
 			decimal? max = null,
-			string? status = null)
+			string? status = null, string? search = null)
 		{
 			var (rooms, totalPages) = await _phongService.GetPagedRoomsAsync(
-				page, pageSize, loaiPhong, min, max, status
+				page, pageSize, loaiPhong, min, max, status,search
 			);
 
             var roomViewModels = rooms.Select(p => new PhongViewModel
