@@ -1,5 +1,6 @@
 ﻿  @using Microsoft.AspNetCore.Http
   @inject IHttpContextAccessor Accessor
+    
 
 
 <!DOCTYPE html>
@@ -97,8 +98,8 @@
             <div class="row align-items-center py-3">
                 <!-- Logo -->
                 <div class="col-md-2">
-                    <a href="#" class="navbar-brand">
-                        <img src="~/image/LuxStay (500 x 200 px).png" alt="" class="logo" width="px">
+                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">
+                        <img   src="~/image/LuxStay (500 x 200 px).png" alt="" class="logo" width="px">
 
                     </a>
                 </div>
@@ -124,10 +125,10 @@
                                     <a class="nav-link" asp-controller="Contact" asp-action="Index">Liên hệ</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link position-relative d-inline-block" asp-controller="DatPhong" asp-action="Cart" style="padding-right: 20px;">
-                                        <i class="bi bi-cart3" style="font-size: 20px;"></i>
+                                    <a class="nav-link  asp-controller="DatPhong" asp-action="Cart" >
+                                       
                                         
-                                        <span class="ms-1">Giỏ hàng</span>
+                                       Giỏ hàng
                                     </a>
                                 </li>
                                 @if (Accessor.HttpContext.Session.GetString("Email") != null)
@@ -159,8 +160,8 @@
             <!-- Form tìm kiếm phòng -->
             <div class="row justify-content-center">
                 <div class="col-md-10">
-                    <form class="search d-flex align-items-center gap-2">
-                        <input type="text" class="form-control" placeholder="Tìm kiếm phòng..." aria-label="Tìm kiếm phòng">
+                    <form asp-controller="DatPhong" asp-action="Index" method="get" class="search d-flex align-items-center gap-2">
+                        <input name="search" type="text" class="form-control" placeholder="Tìm kiếm phòng..." aria-label="Tìm kiếm phòng" >
                         <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                         <a asp-controller="DatPhong" asp-action="Index" class="btn btn-warning">Đặt phòng</a>
                     </form>

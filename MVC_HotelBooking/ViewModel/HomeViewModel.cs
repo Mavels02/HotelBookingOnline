@@ -12,6 +12,7 @@
 		public string? SelectedStatus { get; set; }
 		public decimal? MinPrice { get; set; }
 		public decimal? MaxPrice { get; set; }
+		public string? SearchQuery { get; set; }
 
 	}
 }

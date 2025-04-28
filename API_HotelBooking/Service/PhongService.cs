@@ -90,7 +90,7 @@ namespace API_HotelBooking.Service
 		public async Task<(List<Phong> Rooms, int TotalPages)> GetPagedRoomsAsync(
        int page, int pageSize,
        int? loaiPhong = null, decimal? min = null,
-       decimal? max = null, string? status = null)
+       decimal? max = null, string? status = null, string? search = null)
         {
             var query = _context.Phongs.Include(p => p.LoaiPhong).AsQueryable();
 
@@ -105,8 +105,10 @@ namespace API_HotelBooking.Service
 
             if (max.HasValue)
                 query = query.Where(p => p.GiaPhong <= max.Value);
+			if (!string.IsNullOrEmpty(search))
+				query = query.Where(p => p.TenPhong.Contains(search));
 
-            var totalRooms = await query.CountAsync();
+			var totalRooms = await query.CountAsync();
             var totalPages = (int)Math.Ceiling((double)totalRooms / pageSize);
 
             var rooms = await query
