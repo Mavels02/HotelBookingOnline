@@ -32,7 +32,8 @@ namespace API_HotelBooking.Controllers
                 p.TenPhong,
                 p.GiaPhong,
                 p.TrangThai,
-                LoaiPhongName = p.TenLoai, // Trả về LoaiPhongName từ bảng LoaiPhong
+                 p.TenLoai, 
+				p.SoLuongNguoiToiDa,
                 p.ImageUrl
             }).ToList();
 
@@ -55,7 +56,8 @@ namespace API_HotelBooking.Controllers
 				room.TenPhong,
                 room.GiaPhong,
 				room.TrangThai,
-                LoaiPhongName = room.TenLoai, // Lấy LoaiPhongName
+				room.SoLuongNguoiToiDa,
+                 room.TenLoai, // Lấy LoaiPhongName
 				room.ImageUrl
             };
 

@@ -53,12 +53,16 @@
                             <span asp-validation-for="MaLP" class="text-danger"></span>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Ảnh hiện tại</label><br />
+                 
 
-                            <img type="hidden" src="/image/@Model.ImageUrl" alt="Ảnh phòng" class="img-thumbnail mb-2" style="height: 150px;" />
-                            
-                        </div>
+                            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                            {
+                                <div class="mb-3">
+                                    <label class="form-label">Ảnh hiện tại</label><br />
+                                    <img src="~/image/@Model.ImageUrl" alt="Ảnh phòng" class="img-thumbnail mb-2" style="height: 150px;" />
+                                </div>
+                            }
+                 
 
                         <div class="mb-3">
                             <label asp-for="ImageFile" class="form-label">Chọn ảnh mới (nếu muốn thay)</label>
