@@ -13,7 +13,7 @@ namespace API_HotelBooking.Service
 		Task<(List<Phong> Rooms, int TotalPages)> GetPagedRoomsAsync(
 	   int page, int pageSize,
 	   int? loaiPhong = null, decimal? min = null,
-	   decimal? max = null, string? status = null, string? search = null);
+	   decimal? max = null, string? status = null, string? search = null	);
 	
 	}
 }
