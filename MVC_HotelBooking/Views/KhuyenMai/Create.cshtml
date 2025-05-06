@@ -1,0 +1,60 @@
+﻿@model MVC_HotelBooking.ViewModel.KhuyenMaiViewModel
+@{
+    ViewData["Title"] = "Thêm khuyến mãi";
+    Layout = "_Layout_Admin";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+    <div class="col-md-6">
+        <div class="card shadow rounded-4">
+            <div class="card-header bg-success text-white text-center">
+                <h4 class="mb-0">Thêm khuyến mãi</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    <div class="mb-3">
+                        <label asp-for="TenKM" class="form-label">Tên khuyến mãi</label>
+                        <input asp-for="TenKM" class="form-control" />
+                        <span asp-validation-for="TenKM" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="PhanTramKM" class="form-label">Phần trăm giảm (%)</label>
+                        <input asp-for="PhanTramKM" type="number" min="0" max="100" class="form-control" />
+                        <span asp-validation-for="PhanTramKM" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="NgayBatDau" class="form-label">Ngày bắt đầu</label>
+                        <input asp-for="NgayBatDau" type="date" class="form-control" />
+                        <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="NgayKetThuc" class="form-label">Ngày kết thúc</label>
+                        <input asp-for="NgayKetThuc" type="date" class="form-control" />
+                        <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="TrangThai" class="form-label">Trạng thái</label>
+                        <select asp-for="TrangThai" class="form-select">
+                            <option value="Đang áp dụng">Đang áp dụng</option>
+                            <option value="Hết hạn">Hết hạn</option>
+                        </select>
+                        <span asp-validation-for="TrangThai" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">⬅ Quay lại</a>
+                        <button type="submit" class="btn btn-success">💾 Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

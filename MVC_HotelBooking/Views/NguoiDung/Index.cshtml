@@ -1,0 +1,32 @@
+﻿@model List<MVC_HotelBooking.ViewModel.NguoiDungViewModel>
+@{
+    ViewData["Title"] = "Danh sách khách hàng";
+    Layout = "_Layout_Admin";
+}
+
+<div class="container my-5">
+    <h2 class="mb-4">Danh sách người dùng</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Mã ND</th>
+                <th>Họ tên</th>
+                <th>Email</th>
+                <th>SĐT</th>
+                <th>Vai trò</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MaND</td>
+                    <td>@item.Ten</td>
+                    <td>@item.Email</td>
+                    <td>@item.SDT</td>
+                    <td>@item.VaiTro</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

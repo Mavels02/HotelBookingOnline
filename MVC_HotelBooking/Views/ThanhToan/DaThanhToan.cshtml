@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Thanh toán thành công";
+}
+<div class="mt-4 text-center">
+    <p class="mb-2">Quét mã QR bên dưới để thanh toán:</p>
+    <img src="~/image/qr.jpg" alt="QR Code" style="width: 200px; height: 200px; margin-bottom: 20px;" />
+</div>
+<div class="alert alert-success">
+    <h2>✅ Thanh toán thành công!</h2>
+    <p>Cảm ơn bạn đã đặt phòng. Chúng tôi sẽ sớm liên hệ xác nhận.</p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-warning mt-2">Quay lại trang chủ</a>
+</div>
