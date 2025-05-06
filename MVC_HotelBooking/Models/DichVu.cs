@@ -12,5 +12,7 @@ namespace MVC_HotelBooking.Models
         [Required]
         [Range(0, double.MaxValue)]
         public decimal Gia { get; set; }
+
+        public string ImageUrl { get; set; } // Thêm thuộc tính này để lưu đường dẫn ảnh
     }
 }

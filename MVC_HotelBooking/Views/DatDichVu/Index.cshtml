@@ -1,0 +1,42 @@
+﻿@model IEnumerable<MVC_HotelBooking.Models.DatDichVu>
+
+@{
+    ViewData["Title"] = "Danh sách Đặt Dịch Vụ";
+}
+
+<h4 class="mb-3 text-center text-primary">Danh sách Đặt Dịch Vụ</h4>
+
+<div class="container">
+    <table class="table table-sm table-hover table-bordered shadow-sm rounded small">
+        <thead class="bg-secondary text-white text-center">
+            <tr>
+                <th>Mã DDV</th>
+                <th>Mã DV</th>
+                <th>Số lượng</th>
+                <th>Tổng tiền</th>
+                <th>Ngày</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="text-center align-middle">
+                    <td>@item.MaDDV</td>
+                    <td>@item.MaDV</td>
+                    <td>@item.SoLuong</td>
+                    <td>@item.TongTien.ToString("N0") đ</td>
+                    <td>@item.Ngay.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.MaDDV" class="btn btn-outline-primary btn-sm me-1">
+                            Sửa
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.MaDDV" class="btn btn-outline-danger btn-sm">
+                            Xóa
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

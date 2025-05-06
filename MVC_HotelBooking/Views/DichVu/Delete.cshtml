@@ -1,17 +1,21 @@
 ﻿@model MVC_HotelBooking.Models.DichVu
 
 @{
-    ViewData["Title"] = "Xóa dịch vụ";
+    ViewData["Title"] = "Xóa Dịch Vụ";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 
-<h2>Xác nhận xóa dịch vụ</h2>
+<h1>@ViewData["Title"]</h1>
 
-<div class="alert alert-danger">
-    Bạn có chắc chắn muốn xóa dịch vụ <strong>@Model.KieuDichVu</strong> không?
+<h3>Bạn có chắc chắn muốn xóa dịch vụ này?</h3>
+
+<div>
+    <strong>Kiểu Dịch Vụ:</strong> @Model.KieuDichVu<br />
+    <strong>Giá:</strong> @Model.Gia<br />
+    <strong>Ảnh:</strong> <img src="@Model.ImageUrl" alt="Image" width="100" />
 </div>
 
-<form asp-action="Delete" method="post">
-    <input type="hidden" asp-for="MaDV" />
-    <button type="submit" class="btn btn-danger">🗑️ Xác nhận xóa</button>
-    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+<form method="post">
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a href="@Url.Action("Index", "DichVu")" class="btn btn-secondary">Hủy</a>
 </form>

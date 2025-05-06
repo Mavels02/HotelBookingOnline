@@ -36,6 +36,7 @@ namespace API_HotelBooking.Service
 
             existing.KieuDichVu = dichVu.KieuDichVu;
             existing.Gia = dichVu.Gia;
+            existing.ImageUrl = dichVu.ImageUrl; // Lưu đường dẫn ảnh
 
             await _context.SaveChangesAsync();
             return true;
