@@ -21,6 +21,9 @@ builder.Services.AddScoped<ILoaiPhongService, LoaiPhongService>();
 
 builder.Services.AddScoped<IDatPhongService, DatPhongService>();
 
+builder.Services.AddScoped<IThongKeService, ThongKeService>();
+
+builder.Services.AddHostedService<AutoCancelDatPhongService>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

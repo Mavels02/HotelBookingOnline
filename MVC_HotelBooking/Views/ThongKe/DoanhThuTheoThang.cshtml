@@ -1,0 +1,27 @@
+﻿@model List<MVC_HotelBooking.Models.DoanhThuTheoThang>
+
+@{
+    ViewData["Title"] = "Doanh thu theo tháng";
+}
+
+<h2 class="text-center mb-4">Thống kê doanh thu theo tháng</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Năm</th>
+            <th>Tháng</th>
+            <th>Tổng tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nam</td>
+                <td>@item.Thang</td>
+                <td>@item.TongTien.ToString("N0") VNĐ</td>
+            </tr>
+        }
+    </tbody>
+</table>
