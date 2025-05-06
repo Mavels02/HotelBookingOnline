@@ -1,36 +1,38 @@
 ﻿@model IEnumerable<MVC_HotelBooking.Models.DichVu>
 
 @{
-    ViewData["Title"] = "Danh sách dịch vụ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Danh Sách Dịch Vụ";
 }
+@inject IHttpContextAccessor Accessor
 
-<h2>Danh sách dịch vụ</h2>
-<p>
-    <a href="@Url.Action("Create")" class="btn btn-primary">➕ Thêm dịch vụ</a>
-</p>
 
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Mã DV</th>
-            <th>Kiểu dịch vụ</th>
-            <th>Giá</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+<div class="container py-4">
+    <h2 class="fw-bold text-center mb-4">@ViewData["Title"]</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var dv in Model)
         {
-            <tr>
-                <td>@item.MaDV</td>
-                <td>@item.KieuDichVu</td>
-                <td>@item.Gia.ToString("N0") VNĐ</td>
-                <td>
-                    <a class="btn btn-info btn-sm" href="@Url.Action("Details", new { id = item.MaDV })">🔍 Chi tiết</a>
-                    <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", new { id = item.MaDV })">✏️ Sửa</a>
-                    <a class="btn btn-danger btn-sm" href="@Url.Action("Delete", new { id = item.MaDV })">🗑️ Xóa</a>
-                </td>
-            </tr>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    @if (!string.IsNullOrEmpty(dv.ImageUrl))
+                    {
+                        <img src="@dv.ImageUrl" class="card-img-top" alt="..." style="height: 200px; object-fit: cover;">
+                    }
+                    else
+                    {
+                        <div class="bg-secondary text-white text-center p-5">Không có ảnh</div>
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@dv.KieuDichVu</h5>
+                        <p class="card-text text-success fw-semibold">@dv.Gia.ToString("N0") đ</p>
+                        @if (Accessor.HttpContext.Session.GetString("Email") != null)
+                        {
+                            <a href="@Url.Action("Create", "DatDichVu", new { maDV = dv.MaDV })" class="btn btn-primary">Đặt dịch vụ</a>
+                        }
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+﻿@model MVC_HotelBooking.Models.DatDichVu
+
+@{
+    ViewData["Title"] = "Xác nhận hủy dịch vụ";
+}
+
+<h2 class="text-danger">Bạn có chắc chắn muốn hủy dịch vụ này?</h2>
+
+<div class="border p-3 my-3">
+    <dl class="row">
+        <dt class="col-sm-3">Mã DDV</dt>
+        <dd class="col-sm-9">@Model.MaDDV</dd>
+
+        <dt class="col-sm-3">Mã DV</dt>
+        <dd class="col-sm-9">@Model.MaDV</dd>
+
+        <dt class="col-sm-3">Số lượng</dt>
+        <dd class="col-sm-9">@Model.SoLuong</dd>
+
+        <dt class="col-sm-3">Tổng tiền</dt>
+        <dd class="col-sm-9">@Model.TongTien.ToString("N0") đ</dd>
+
+        <dt class="col-sm-3">Ngày</dt>
+        <dd class="col-sm-9">@Model.Ngay.ToString("dd/MM/yyyy")</dd>
+    </dl>
+
+    <form asp-action="DeleteConfirmed" asp-route-id="@Model.MaDDV" method="post">
+        <button type="submit" class="btn btn-danger">Xác nhận hủy</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy bỏ</a>
+    </form>
+</div>

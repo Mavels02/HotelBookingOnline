@@ -125,14 +125,13 @@
                                     <a class="nav-link" asp-controller="Contact" asp-action="Index">Liên hệ</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link  asp-controller="DatPhong" asp-action="Cart" >
-                                       
-                                        
-                                       Giỏ hàng
-                                    </a>
+                                    <a class="nav-link" asp-controller="DatPhong" asp-action="Cart">Giỏ hàng</a>
                                 </li>
                                 @if (Accessor.HttpContext.Session.GetString("Email") != null)
                                 {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="DatDichVu" asp-action="Index">Dịch Vụ Đã Đặt</a>
+                                    </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle">Xin chào, @Accessor.HttpContext.Session.GetString("UserName") </a>
                                         <ul class="dropdown-menu">

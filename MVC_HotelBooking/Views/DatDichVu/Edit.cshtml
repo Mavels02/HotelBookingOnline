@@ -1,0 +1,49 @@
+﻿@model MVC_HotelBooking.Models.DatDichVu
+
+@{
+    ViewData["Title"] = "Cập nhật Đặt Dịch Vụ";
+}
+
+<h2>Cập nhật Đặt Dịch Vụ</h2>
+
+@if (!ViewData.ModelState.IsValid && ViewData.ModelState[string.Empty] != null)
+{
+    foreach (var error in ViewData.ModelState[string.Empty].Errors)
+    {
+        <div class="alert alert-danger">
+            @error.ErrorMessage
+        </div>
+    }
+}
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="MaDDV" />
+
+    <div class="form-group">
+        <label asp-for="MaDV">Mã Dịch Vụ</label>
+        <input asp-for="MaDV" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MaDP">Mã Đặt Phòng</label>
+        <input asp-for="MaDP" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SoLuong">Số Lượng</label>
+        <input asp-for="SoLuong" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Ngay">Ngày</label>
+        <input asp-for="Ngay" type="date" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TongTien">Tổng Tiền</label>
+        <input asp-for="TongTien" class="form-control" readonly />
+    </div>
+
+    <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

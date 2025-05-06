@@ -1,23 +1,35 @@
 ﻿@model MVC_HotelBooking.Models.DichVu
 
 @{
-    ViewData["Title"] = "Chỉnh sửa dịch vụ";
+    ViewData["Title"] = "Chỉnh sửa Dịch Vụ";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 
-<h2>Chỉnh sửa dịch vụ</h2>
+<h1>@ViewData["Title"]</h1>
 
-<form asp-action="Edit" method="post">
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form method="post" enctype="multipart/form-data">
+    <!-- 🟢 Giữ lại MaDV -->
     <input type="hidden" asp-for="MaDV" />
+
     <div class="form-group">
-        <label asp-for="KieuDichVu"></label>
-        <input asp-for="KieuDichVu" class="form-control" />
-        <span asp-validation-for="KieuDichVu" class="text-danger"></span>
+        <label for="KieuDichVu">Kiểu Dịch Vụ</label>
+        <input type="text" class="form-control" id="KieuDichVu" name="KieuDichVu" value="@Model.KieuDichVu" required />
     </div>
     <div class="form-group">
-        <label asp-for="Gia"></label>
-        <input asp-for="Gia" class="form-control" />
-        <span asp-validation-for="Gia" class="text-danger"></span>
+        <label for="Gia">Giá</label>
+        <input type="number" class="form-control" id="Gia" name="Gia" value="@Model.Gia.ToString("N0")" required />
     </div>
+    <div class="form-group">
+        <label for="ImageUrl">Chọn ảnh mới</label>
+        <input type="file" class="form-control" id="ImageUrl" name="imageFile" />
+    </div>
+
+    <div class="form-group">
+        <label>Ảnh hiện tại</label><br />
+        <img src="@Model.ImageUrl" alt="Image" width="150" />
+    </div>
+
     <button type="submit" class="btn btn-primary">Cập nhật</button>
-    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
 </form>

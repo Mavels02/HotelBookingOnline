@@ -1,31 +1,24 @@
 ﻿@model MVC_HotelBooking.Models.DichVu
 
 @{
-    ViewData["Title"] = "Thêm dịch vụ";
+    ViewData["Title"] = "Tạo Dịch Vụ";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 
-<h2>Thêm dịch vụ</h2>
+<h1>@ViewData["Title"]</h1>
 
-<form asp-action="Create" method="post">
+<form method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label asp-for="KieuDichVu"></label>
-        <input asp-for="KieuDichVu" class="form-control" />
-        <span asp-validation-for="KieuDichVu" class="text-danger"></span>
+        <label for="KieuDichVu">Kiểu Dịch Vụ</label>
+        <input type="text" class="form-control" id="KieuDichVu" name="KieuDichVu" value="@(Model?.KieuDichVu ?? "")" required />
     </div>
     <div class="form-group">
-        <label asp-for="Gia"></label>
-        <input asp-for="Gia" class="form-control" />
-        <span asp-validation-for="Gia" class="text-danger"></span>
+        <label for="Gia">Giá</label>
+        <input type="number" class="form-control" id="Gia" name="Gia" value="@(Model?.Gia ?? 0)" required />
     </div>
-    <button type="submit" class="btn btn-success">Lưu</button>
-    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    <div class="form-group">
+        <label for="ImageUrl">Chọn ảnh</label>
+        <input type="file" class="form-control" id="ImageUrl" name="imageFile" />
+    </div>
+    <button type="submit" class="btn btn-primary">Tạo mới</button>
 </form>
-@if (!ViewData.ModelState.IsValid)
-{
-    <div class="alert alert-danger">
-        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-        {
-            <p>@error.ErrorMessage</p>
-        }
-    </div>
-}

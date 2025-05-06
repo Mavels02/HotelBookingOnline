@@ -14,7 +14,9 @@ namespace API_HotelBooking.Models
         [Required]
         [Range(0, double.MaxValue)]
         public decimal Gia { get; set; }
-        
+
+        public string? ImageUrl { get; set; }
+
         public ICollection<DatDichVu>? DatDichVus { get; set; }
     }
 }
