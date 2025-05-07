@@ -55,11 +55,14 @@ namespace API_HotelBooking.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaDDV"));
 
-                    b.Property<int>("MaDP")
+                    b.Property<int?>("MaDP")
                         .HasColumnType("int");
 
                     b.Property<int>("MaDV")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("Ngay")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("SoLuong")
                         .HasColumnType("int");
@@ -134,6 +137,9 @@ namespace API_HotelBooking.Migrations
                     b.Property<decimal>("Gia")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("KieuDichVu")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -188,23 +194,6 @@ namespace API_HotelBooking.Migrations
                     b.HasKey("MaLP");
 
                     b.ToTable("LoaiPhongs");
-
-                    b.HasData(
-                        new
-                        {
-                            MaLP = 1,
-                            LoaiPhongName = "Phòng đơn"
-                        },
-                        new
-                        {
-                            MaLP = 2,
-                            LoaiPhongName = "Phòng đôi"
-                        },
-                        new
-                        {
-                            MaLP = 3,
-                            LoaiPhongName = "Phòng VIP"
-                        });
                 });
 
             modelBuilder.Entity("API_HotelBooking.Models.NguoiDung", b =>
@@ -320,9 +309,7 @@ namespace API_HotelBooking.Migrations
                 {
                     b.HasOne("API_HotelBooking.Models.DatPhong", "DatPhong")
                         .WithMany("DatDichVus")
-                        .HasForeignKey("MaDP")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MaDP");
 
                     b.HasOne("API_HotelBooking.Models.DichVu", "DichVu")
                         .WithMany("DatDichVus")

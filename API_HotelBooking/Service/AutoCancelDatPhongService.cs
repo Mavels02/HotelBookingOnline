@@ -27,7 +27,7 @@ public class AutoCancelDatPhongService : BackgroundService
                 var now = DateTime.Now;
                 var waitingDatPhongs = await context.DatPhongs
                     .Where(dp => dp.TrangThai == "Đang chờ thanh toán" &&
-                                 EF.Functions.DateDiffMinute(dp.ThoiGianDat, now) >= 2)
+                                 EF.Functions.DateDiffMinute(dp.ThoiGianDat, now) >= 5)
                     .ToListAsync();
 
                 foreach (var dp in waitingDatPhongs)

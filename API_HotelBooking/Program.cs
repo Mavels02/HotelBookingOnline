@@ -14,11 +14,11 @@ builder.Services.AddControllers()
 	{
 		options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
 	});
-
+builder.Services.AddScoped<IDatDichVuService, DatDichVuService>();
 builder.Services.AddScoped<IDichVuService, DichVuService>();
 builder.Services.AddScoped<IPhongService, PhongService>();
 builder.Services.AddScoped<ILoaiPhongService, LoaiPhongService>();
-
+builder.Services.AddScoped<IKhuyenMaiService, KhuyenMaiService>();
 builder.Services.AddScoped<IDatPhongService, DatPhongService>();
 
 builder.Services.AddScoped<IThongKeService, ThongKeService>();

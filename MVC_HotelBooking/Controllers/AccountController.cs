@@ -16,12 +16,12 @@ namespace MVC_HotelBooking.Controllers
 	public class AccountController : Controller
 	{
 		private readonly HttpClient _httpClient;
-		private readonly string _apiBaseUrl = "http://localhost:40841/api";
+		private readonly string _apiBaseUrl = "https://localhost:7077/api";
 		private readonly IHttpContextAccessor _contextAccessor;
 		public AccountController(HttpClient httpClient, IHttpContextAccessor contextAccessor)
 		{
 			_httpClient = httpClient;
-			_httpClient.BaseAddress = new Uri("http://localhost:40841/");
+			_httpClient.BaseAddress = new Uri("https://localhost:7077/");
 			_contextAccessor = contextAccessor;
 		}
 		[HttpGet]
@@ -96,7 +96,7 @@ namespace MVC_HotelBooking.Controllers
 			
 				if (user.VaiTro == "Admin")
 				{
-					return RedirectToAction("Index", "Phong");
+					return RedirectToAction("Index", "ThongKe");
 				}
 				else if (user.VaiTro == "Receptionist")
 				{
@@ -115,8 +115,12 @@ namespace MVC_HotelBooking.Controllers
 		// Đăng xuất người dùng
 		public IActionResult Logout()
 		{
-			HttpContext.Session.Clear();  // Xóa session
-			return RedirectToAction("Index", "Home");  // Quay lại trang chủ
+
+			HttpContext.Session.Remove("Id");  
+			HttpContext.Session.Remove("Email"); 
+			HttpContext.Session.Remove("UserName");  
+			HttpContext.Session.Remove("VaiTro");  
+            return RedirectToAction("Index", "Home");  // Quay lại trang chủ
 		}
 	}
 }

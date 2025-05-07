@@ -91,13 +91,13 @@
 
             <!-- Menu -->
             <ul class="nav flex-column gap-2">
-                <li><a class="nav-link text-white" href="#" onclick="showSection('dashboard')">📊 Dashboard</a></li>
+                <li><a class="nav-link text-white" href="@Url.Action("Index","ThongKe")">📊 Dashboard</a></li>
                 <li><a class="nav-link text-white" href="#" onclick="showSection('booking-management')">📅 Quản lý đặt phòng</a></li>
                 <li><a class="nav-link text-white" href="@Url.Action("Index", "Phong")">🏨 Quản lý phòng</a></li>
                 <li><a class="nav-link text-white" href="@Url.Action("Index", "LoaiPhong")">🏨 Quản lý loại phòng</a></li>
-                <li><a class="nav-link text-white" href="#" onclick="showSection('customer-management')">👥 Quản lý khách hàng</a></li>
-                <li><a class="nav-link text-white" href="@Url.Action("Index", "DichVu")">🛎️ Quản lý dịch vụ</a></li>
-                <li><a class="nav-link text-white" href="#" onclick="showSection('system-settings')">⚙ Thiết lập hệ thống</a></li>
+                <li><a class="nav-link text-white" href="@Url.Action("Index","NguoiDung") ">👥 Quản lý khách hàng</a></li>
+                <li><a class="nav-link text-white" href="@Url.Action("IndexAdmin", "DichVu")">🛎️ Quản lý dịch vụ</a></li>
+                <li><a class="nav-link text-white" href="@Url.Action("Index","KhuyenMai")">Quản lí khuyến mãi</a></li>
             </ul>
         </div>
 

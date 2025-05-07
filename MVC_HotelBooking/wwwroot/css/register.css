@@ -82,3 +82,34 @@ a {
     a:hover {
         text-decoration: underline;
     }
+/* Kiểu dáng nút khi bị vô hiệu hóa */
+.disabled-button {
+    background-color: #cccccc; /* Màu xám nhạt */
+    border-color: #cccccc;
+    cursor: not-allowed; /* Hiển thị con trỏ không cho phép */
+    opacity: 0.7;
+}
+
+/* Kiểu dáng nút khi được kích hoạt */
+#submit-button:not(.disabled-button) {
+    background-color: #007bff; /* Màu xanh dương */
+    border-color: #007bff;
+    cursor: pointer;
+    opacity: 1;
+}
+/* Nút bị vô hiệu hóa */
+.disabled-button {
+    background-color: #cccccc; /* Màu xám nhạt */
+    border-color: #cccccc;
+    cursor: not-allowed; /* Hiển thị con trỏ không cho phép */
+    opacity: 0.7;
+}
+
+/* Nút được kích hoạt */
+.enabled-button {
+    background-color: #007bff; /* Màu xanh dương */
+    border-color: #007bff;
+    cursor: pointer;
+    opacity: 1;
+    color: white;
+}

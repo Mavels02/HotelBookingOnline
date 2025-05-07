@@ -19,10 +19,18 @@ namespace MVC_HotelBooking.Controllers
         // Hiển thị danh sách đặt dịch vụ
         public async Task<IActionResult> Index()
         {
-            using var client = new HttpClient { BaseAddress = new Uri(BaseUrl) };
-            var list = await client.GetFromJsonAsync<IEnumerable<DatDichVu>>(Endpoint)
-                           ?? Enumerable.Empty<DatDichVu>();
-            return View(list);
+            
+            try
+            {
+                using var client = new HttpClient { BaseAddress = new Uri(BaseUrl) };
+                var list = await client.GetFromJsonAsync<IEnumerable<DatDichVu>>(Endpoint)
+                               ?? Enumerable.Empty<DatDichVu>();
+                return View(list);
+            }
+            catch (Exception ex)
+            {
+                return Content($"Lỗi: {ex.Message}");
+            }
         }
 
         // Form tạo mới đặt dịch vụ
@@ -73,7 +81,7 @@ namespace MVC_HotelBooking.Controllers
                     }
 
                     var errorContent = await response.Content.ReadAsStringAsync();
-                    ModelState.AddModelError("", $"Lỗi từ API: {errorContent}");
+                    ModelState.AddModelError("", $"Lỗi thông tin");
                 }
                 else
                 {

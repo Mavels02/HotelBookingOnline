@@ -9,7 +9,7 @@ namespace API_HotelBooking.Data
 		public static async Task Initialize(IServiceProvider serviceProvider, AppDbContext context)
 		{
 			// Kiểm tra nếu tài khoản Admin đã tồn tại
-			if (!context.NguoiDungs.Any(u => u.Email == "admin@hotel.com"))
+				if (!context.NguoiDungs.Any(u => u.Email == "admin@hotel.com"))
 			{
 				// Tạo tài khoản Admin nếu chưa có
 				var adminUser = new NguoiDung

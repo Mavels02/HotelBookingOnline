@@ -1,1 +1,49 @@
-﻿<h2>ThanhToan</h2>
+﻿@model MVC_HotelBooking.ViewModel.ThanhToanViewModel
+@{
+    ViewData["Title"] = "Xác nhận thanh toán";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-sm-12">
+            <div class="card shadow-lg rounded-4 border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2>Xác Nhận Thanh Toán</h2>
+                </div>
+                <div class="card-body p-4">
+                    <h4 class="mb-3">Thông tin đặt phòng</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Phòng:</strong> @Model.TenPhong - @Model.TenLoaiPhong</li>
+                        <li class="list-group-item"><strong>Khách hàng:</strong> @Model.TenNguoiDung</li>
+                        <li class="list-group-item"><strong>Ngày nhận phòng:</strong> @Model.ThoiGianCheckIn.ToShortDateString()</li>
+                        <li class="list-group-item"><strong>Ngày trả phòng:</strong> @Model.ThoiGianCheckOut.ToShortDateString()</li>
+                        <li class="list-group-item"><strong>Số người:</strong> @Model.SoNguoi</li>
+                        <li class="list-group-item"><strong>Khuyến mãi:</strong> @Model.TenKhuyenMai </li>
+                        <li class="list-group-item"><strong>Tổng tiền:</strong> <span class="text-danger">@Model.TongTien.ToString("N0") VND</span></li>
+                    </ul>
+
+                    <div class="mt-4 text-center">
+                        <p class="mb-2">Quét mã QR bên dưới để thanh toán:</p>
+                        <img src="~/image/qr.jpg" alt="QR Code" style="width: 200px; height: 200px; margin-bottom: 20px;" />
+                    </div>
+
+                    <form asp-action="XacNhanThanhToan" method="post">
+                        @Html.HiddenFor(m => m.MaDP)
+                        @Html.HiddenFor(m => m.TenPhong)
+                        @Html.HiddenFor(m => m.TenLoaiPhong)
+                        @Html.HiddenFor(m => m.TenNguoiDung)
+                        @Html.HiddenFor(m => m.GiaPhong)
+                        @Html.HiddenFor(m => m.ThoiGianCheckIn)
+                        @Html.HiddenFor(m => m.ThoiGianCheckOut)
+                        @Html.HiddenFor(m => m.SoNguoi)
+                        @Html.HiddenFor(m => m.TenKhuyenMai)
+                        @Html.HiddenFor(m => m.PhanTramGiam)
+                        @Html.HiddenFor(m => m.TongTien)
+
+                        <button type="submit" class="btn btn-success btn-lg w-100" asp-controller="ThanhToan" asp-action="DaThanhToan">Tôi đã thanh toán</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,7 +16,7 @@ namespace MVC_HotelBooking.Controllers
 		public DatPhongController(IHttpClientFactory httpClientFactory)
 		{
 			_httpClient = httpClientFactory.CreateClient();
-			_httpClient.BaseAddress = new Uri("http://localhost:40841/");
+			_httpClient.BaseAddress = new Uri("https://localhost:7077/");
 		}
 
 
@@ -85,7 +85,7 @@ namespace MVC_HotelBooking.Controllers
 				var cart = HttpContext.Session.Get<List<DatPhong>>("Cart") ?? new List<DatPhong>();
 				cart.Add(result);
 				HttpContext.Session.Set("Cart", cart);
-				return RedirectToAction("Index", "ThanhToan", new { id = result.MaDP });
+				return RedirectToAction("DaThanhToan", "ThanhToan", new { id = result.MaDP });
 			}
 
 			var error = await response.Content.ReadAsStringAsync();

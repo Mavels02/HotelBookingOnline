@@ -13,7 +13,7 @@ namespace MVC_HotelBooking.Controllers
 		public LoaiPhongController()
 		{
 			_httpClient = new HttpClient();
-			_httpClient.BaseAddress = new Uri("http://localhost:40841/api/");
+			_httpClient.BaseAddress = new Uri("https://localhost:7077/api/");
 		}
 
 		public async Task<IActionResult> Index()

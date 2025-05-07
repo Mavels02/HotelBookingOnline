@@ -16,7 +16,7 @@ namespace MVC_HotelBooking.Controllers
 		public HomeController(IHttpClientFactory httpClientFactory)
 		{
 			_httpClient = httpClientFactory.CreateClient();
-			_httpClient.BaseAddress = new Uri("http://localhost:40841/");
+			_httpClient.BaseAddress = new Uri("https://localhost:7077/");
 		}
 
 

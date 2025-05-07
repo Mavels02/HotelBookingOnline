@@ -17,7 +17,7 @@ namespace MVC_HotelBooking.Controllers
 		public PhongController(IHttpClientFactory httpClientFactory)
 		{
 			_httpClient = httpClientFactory.CreateClient();
-			_httpClient.BaseAddress = new Uri("http://localhost:40841/");
+			_httpClient.BaseAddress = new Uri("https://localhost:7077/");
 
 		}
 
@@ -167,7 +167,7 @@ namespace MVC_HotelBooking.Controllers
 		}
 		private async Task<List<SelectListItem>> GetLoaiPhongDropdown()
 		{
-			var res = await _httpClient.GetAsync("http://localhost:40841/api/loaiphong");
+			var res = await _httpClient.GetAsync("https://localhost:7077/api/loaiphong");
 			if (!res.IsSuccessStatusCode) return new List<SelectListItem>();
 
 			var json = await res.Content.ReadAsStringAsync();

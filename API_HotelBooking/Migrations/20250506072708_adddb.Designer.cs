@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_HotelBooking.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250424023010_addlp")]
-    partial class addlp
+    [Migration("20250506072708_adddb")]
+    partial class adddb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,11 +58,14 @@ namespace API_HotelBooking.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaDDV"));
 
-                    b.Property<int>("MaDP")
+                    b.Property<int?>("MaDP")
                         .HasColumnType("int");
 
                     b.Property<int>("MaDV")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("Ngay")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("SoLuong")
                         .HasColumnType("int");
@@ -136,6 +139,9 @@ namespace API_HotelBooking.Migrations
 
                     b.Property<decimal>("Gia")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("KieuDichVu")
                         .IsRequired()
@@ -306,9 +312,7 @@ namespace API_HotelBooking.Migrations
                 {
                     b.HasOne("API_HotelBooking.Models.DatPhong", "DatPhong")
                         .WithMany("DatDichVus")
-                        .HasForeignKey("MaDP")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MaDP");
 
                     b.HasOne("API_HotelBooking.Models.DichVu", "DichVu")
                         .WithMany("DatDichVus")

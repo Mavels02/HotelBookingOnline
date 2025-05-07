@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API_HotelBooking.Migrations
 {
     /// <inheritdoc />
-    public partial class taodb : Migration
+    public partial class adddb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

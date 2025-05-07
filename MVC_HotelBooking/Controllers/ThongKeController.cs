@@ -10,7 +10,7 @@ namespace MVC_HotelBooking.Controllers
         public ThongKeController(IHttpClientFactory httpClientFactory)
         {
             _httpClient = httpClientFactory.CreateClient();
-            _httpClient.BaseAddress = new Uri("http://localhost:5274/");
+            _httpClient.BaseAddress = new Uri("https://localhost:7077/");
         }
         public IActionResult Index()
         {
