@@ -10,7 +10,7 @@ namespace API_HotelBooking.Data
 		{
 			// Kiểm tra nếu tài khoản Admin đã tồn tại
 				if (!context.NguoiDungs.Any(u => u.Email == "admin@hotel.com"))
-			{
+				{
 				// Tạo tài khoản Admin nếu chưa có
 				var adminUser = new NguoiDung
 				{
