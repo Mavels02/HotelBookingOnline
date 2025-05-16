@@ -5,10 +5,10 @@ namespace API_HotelBooking.Service
 {
     public interface IKhuyenMaiService
     {
-        Task<IEnumerable<KhuyenMaiViewModel>> GetAllAsync();
-        Task<KhuyenMaiViewModel> GetByIdAsync(int id);
-        Task<KhuyenMaiViewModel> CreateAsync(KhuyenMaiViewModel dto);
-        Task<bool> UpdateAsync(int id, KhuyenMaiViewModel dto);
+        Task<IEnumerable<KhuyenMaiDTO>> GetAllAsync();
+        Task<KhuyenMaiDTO> GetByIdAsync(int id);
+        Task<KhuyenMaiDTO> CreateAsync(KhuyenMaiDTO dto);
+        Task<bool> UpdateAsync(int id, KhuyenMaiDTO dto);
         Task<bool> DeleteAsync(int id);
     }
 }

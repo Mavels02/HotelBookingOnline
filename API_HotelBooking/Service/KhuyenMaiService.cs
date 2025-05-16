@@ -13,10 +13,10 @@ namespace API_HotelBooking.Service
             _context = context;
         }
 
-        public async Task<IEnumerable<KhuyenMaiViewModel>> GetAllAsync()
+        public async Task<IEnumerable<KhuyenMaiDTO>> GetAllAsync()
         {
             return await _context.KhuyenMais
-                .Select(km => new KhuyenMaiViewModel
+                .Select(km => new KhuyenMaiDTO
                 {
                     MaKM = km.MaKM,
                     TenKM = km.TenKM,
@@ -27,12 +27,12 @@ namespace API_HotelBooking.Service
                 }).ToListAsync();
         }
 
-        public async Task<KhuyenMaiViewModel> GetByIdAsync(int id)
+        public async Task<KhuyenMaiDTO> GetByIdAsync(int id)
         {
             var km = await _context.KhuyenMais.FindAsync(id);
             if (km == null) return null;
 
-            return new KhuyenMaiViewModel
+            return new KhuyenMaiDTO
             {
                 MaKM = km.MaKM,
                 TenKM = km.TenKM,
@@ -43,7 +43,7 @@ namespace API_HotelBooking.Service
             };
         }
 
-        public async Task<KhuyenMaiViewModel> CreateAsync(KhuyenMaiViewModel dto)
+        public async Task<KhuyenMaiDTO> CreateAsync(KhuyenMaiDTO dto)
         {
             var km = new KhuyenMai
             {
@@ -61,7 +61,7 @@ namespace API_HotelBooking.Service
             return dto;
         }
 
-        public async Task<bool> UpdateAsync(int id, KhuyenMaiViewModel dto)
+        public async Task<bool> UpdateAsync(int id, KhuyenMaiDTO dto)
         {
             var km = await _context.KhuyenMais.FindAsync(id);
             if (km == null) return false;

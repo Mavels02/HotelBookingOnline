@@ -13,10 +13,10 @@ namespace API_HotelBooking.Service
             _context = context;
         }
 
-		public async Task<IEnumerable<PhongViewModel>> GetAllAsync()
+		public async Task<IEnumerable<PhongDTO>> GetAllAsync()
 		{
 			return await _context.Phongs.Include(p => p.LoaiPhong)
-				.Select(p => new PhongViewModel
+				.Select(p => new PhongDTO
 				{
 					MaP = p.MaP,
 					TenPhong = p.TenPhong,
@@ -29,12 +29,12 @@ namespace API_HotelBooking.Service
 				}).ToListAsync();
 		}
 
-		public async Task<PhongViewModel> GetByIdAsync(int id)
+		public async Task<PhongDTO> GetByIdAsync(int id)
 		{
 			var p = await _context.Phongs.Include(x => x.LoaiPhong).FirstOrDefaultAsync(p => p.MaP == id);
 			if (p == null) return null;
 
-			return new PhongViewModel
+			return new PhongDTO
 			{
 				MaP = p.MaP,
 				TenPhong = p.TenPhong,
@@ -47,13 +47,14 @@ namespace API_HotelBooking.Service
 			};
 		}
 
-		public async Task CreateAsync(PhongViewModel dto)
+		public async Task CreateAsync(PhongDTO dto)
 		{
 			var p = new Phong
 			{
 				TenPhong = dto.TenPhong,
 				GiaPhong = dto.GiaPhong,
-				TrangThai = dto.TrangThai,
+				MoTa = dto.MoTa,
+                TrangThai = dto.TrangThai,
 				ImageUrl = dto.ImageUrl,
 				SoLuongNguoiToiDa = dto.SoLuongNguoiToiDa,
 				MaLP = dto.MaLP
@@ -62,14 +63,15 @@ namespace API_HotelBooking.Service
 			await _context.SaveChangesAsync();
 		}
 
-		public async Task<bool> UpdateAsync(int id, PhongViewModel dto)
+		public async Task<bool> UpdateAsync(int id, PhongDTO dto)
 		{
 			var p = await _context.Phongs.FindAsync(id);
 			if (p == null) return false;
 
 			p.TenPhong = dto.TenPhong;
 			p.GiaPhong = dto.GiaPhong;
-			p.TrangThai = dto.TrangThai;
+			p.MoTa = dto.MoTa;
+            p.TrangThai = dto.TrangThai;
 			p.ImageUrl = dto.ImageUrl;
 			p.SoLuongNguoiToiDa = dto.SoLuongNguoiToiDa;
 			p.MaLP = dto.MaLP;
