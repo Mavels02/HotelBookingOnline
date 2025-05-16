@@ -2,7 +2,7 @@
 
 using API_HotelBooking.Service;
 
-using API_HotelBooking.ViewModels;
+using API_HotelBooking.DTOs;
 
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

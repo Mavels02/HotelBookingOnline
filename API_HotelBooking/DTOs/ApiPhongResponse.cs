@@ -1,6 +1,6 @@
 ﻿
 
-namespace API_HotelBooking.ViewModels
+namespace API_HotelBooking.DTOs
 {
 	public class ApiPhongResponse
 

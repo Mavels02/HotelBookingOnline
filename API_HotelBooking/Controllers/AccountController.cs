@@ -4,6 +4,7 @@ using API_HotelBooking.Models;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using API_HotelBooking.Requests;
 
 namespace API_HotelBooking.Controllers
 {
@@ -18,7 +19,7 @@ namespace API_HotelBooking.Controllers
 		}
 		[HttpPost("register")]
 		
-		public IActionResult Register([FromBody] RegisterRequest userregister)
+		public IActionResult Register([FromBody] Register userregister)
 		{
 			// Kiểm tra người dùng đã tồn tại chưa
 			var existingUser = _context.NguoiDungs.FirstOrDefault(u => u.Email == userregister.Email);
@@ -57,7 +58,7 @@ namespace API_HotelBooking.Controllers
 
 		// API đăng nhập người dùng
 		[HttpPost("login")]
-		public IActionResult Login([FromBody] LoginRequest loginRequest)
+		public IActionResult Login([FromBody] Login loginRequest)
 		{
 			var user = _context.NguoiDungs.FirstOrDefault(u => u.Email == loginRequest.Email);
 			if (user == null || !VerifyPassword(loginRequest.MatKhau, user.MatKhau))
@@ -80,20 +81,6 @@ namespace API_HotelBooking.Controllers
 			var enteredPasswordHash = HashPassword(enteredPassword);
 			return enteredPasswordHash == storedPasswordHash;
 		}
-	}
-
-	public class LoginRequest
-	{
-		public string Email { get; set; }
-		public string MatKhau { get; set; }
-	}
-	public class RegisterRequest
-	{  
-		public string Ten { get; set; }
-		public string Email { get; set; }
-		public string SDT { get; set; }
-		public string MatKhau { get; set; }
-		public string ConfirmPassword { get; set; }
 	}
 }
 

@@ -1,5 +1,5 @@
 ﻿using API_HotelBooking.Models;
-using API_HotelBooking.ViewModels;
+using API_HotelBooking.DTOs;
 
 namespace API_HotelBooking.Service
 {

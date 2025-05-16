@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using API_HotelBooking.Models;
 using API_HotelBooking.Service;
-using API_HotelBooking.ViewModels;
+using API_HotelBooking.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
